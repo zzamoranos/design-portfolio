@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -140 900 1340" width="900" height="1340">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#141826"/>
+      <stop offset="0.55" stop-color="#2a2333"/>
+      <stop offset="1" stop-color="#3a2a26"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffd27a" stop-opacity="0.75"/>
+      <stop offset="0.35" stop-color="#f0a845" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#f0a845" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="core" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fffaf0"/>
+      <stop offset="0.6" stop-color="#ffe7b0"/>
+      <stop offset="1" stop-color="#f6c66a"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd884"/>
+      <stop offset="1" stop-color="#e59a2f"/>
+    </linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ef6a55"/>
+      <stop offset="1" stop-color="#b8362f"/>
+    </linearGradient>
+    <linearGradient id="cream" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff6df"/>
+      <stop offset="1" stop-color="#f3d79a"/>
+    </linearGradient>
+    <filter id="blur-lg" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14"/></filter>
+    <filter id="blur-sm" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="2"/>
+      <feColorMatrix values="0 0 0 0 0.5  0 0 0 0 0.45  0 0 0 0 0.4  0 0 0 0.09 0"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+    </filter>
+  </defs>
+
+  <rect y="-140" width="900" height="1340" fill="url(#sky)"/>
+
+  <!-- window frame, capiz grid -->
+  <g opacity="0.55">
+    <rect x="70" y="140" width="760" height="980" rx="6" fill="#2b2220" stroke="#4a3a32" stroke-width="10"/>
+    <g stroke="#3d302a" stroke-width="3">
+      <path d="M70 360 H830 M70 580 H830 M70 800 H830 M70 1020 H830"/>
+      <path d="M260 140 V1120 M450 140 V1120 M640 140 V1120"/>
+    </g>
+  </g>
+
+  <!-- string lights, out of focus -->
+  <g filter="url(#blur-lg)">
+    <circle cx="90" cy="120" r="30" fill="#ffcf70" opacity="0.55"/>
+    <circle cx="210" cy="160" r="24" fill="#ff8a60" opacity="0.45"/>
+    <circle cx="700" cy="150" r="28" fill="#ffd27a" opacity="0.5"/>
+    <circle cx="820" cy="110" r="22" fill="#8fd0ff" opacity="0.35"/>
+    <circle cx="120" cy="980" r="34" fill="#ffcf70" opacity="0.35"/>
+    <circle cx="800" cy="1040" r="40" fill="#ff8a60" opacity="0.3"/>
+    <circle cx="760" cy="760" r="26" fill="#9ce3a8" opacity="0.28"/>
+    <circle cx="140" cy="700" r="20" fill="#ffd27a" opacity="0.3"/>
+  </g>
+
+  <!-- warm glow behind the lantern -->
+  <circle cx="450" cy="470" r="440" fill="url(#glow)"/>
+
+  <!-- hanging wire -->
+  <path d="M450 -140 V262" stroke="#1a1414" stroke-width="4"/>
+
+  <!-- tails -->
+  <g opacity="0.95">
+    <path d="M326 638 C300 720 352 790 318 870 C300 915 312 960 296 1010 L312 1012 C326 960 318 918 336 872 C368 794 318 722 342 642 Z" fill="url(#gold)"/>
+    <path d="M574 638 C600 720 548 790 582 870 C600 915 588 960 604 1010 L588 1012 C574 960 582 918 564 872 C532 794 582 722 558 642 Z" fill="url(#gold)"/>
+    <g stroke="#ffe1a0" stroke-width="2" opacity="0.7" fill="none">
+      <path d="M296 1010 l-10 40 M304 1011 l0 44 M312 1012 l10 40"/>
+      <path d="M588 1012 l-10 40 M596 1011 l0 44 M604 1010 l10 40"/>
+    </g>
+  </g>
+
+  <!-- star points -->
+  <g stroke="#7a3a1e" stroke-width="5" stroke-linejoin="round">
+    <path d="M450 260 L502.9 397.2 L397.1 397.2 Z" fill="url(#red)"/>
+    <path d="M649.7 405.1 L535.6 497.8 L502.9 397.2 Z" fill="url(#gold)"/>
+    <path d="M573.5 639.9 L450 560 L535.6 497.8 Z" fill="url(#red)"/>
+    <path d="M326.5 639.9 L364.4 497.8 L450 560 Z" fill="url(#gold)"/>
+    <path d="M250.3 405.1 L397.1 397.2 L364.4 497.8 Z" fill="url(#red)"/>
+    <path d="M502.9 397.2 L535.6 497.8 L450 560 L364.4 497.8 L397.1 397.2 Z" fill="url(#cream)"/>
+  </g>
+  <!-- bamboo spokes -->
+  <g stroke="#8a4a24" stroke-width="3" opacity="0.6">
+    <path d="M450 470 L450 260 M450 470 L649.7 405.1 M450 470 L573.5 639.9 M450 470 L326.5 639.9 M450 470 L250.3 405.1"/>
+  </g>
+  <circle cx="450" cy="470" r="52" fill="url(#core)" stroke="#c98a3a" stroke-width="4"/>
+  <circle cx="450" cy="470" r="120" fill="#fff3d0" opacity="0.18" filter="url(#blur-lg)"/>
+
+  <!-- paper sheen -->
+  <g fill="#ffffff" opacity="0.22" filter="url(#blur-sm)">
+    <path d="M440 300 L470 380 L430 380 Z"/>
+    <path d="M600 420 L540 470 L530 430 Z"/>
+  </g>
+
+  <rect y="-140" width="900" height="1340" filter="url(#grain)" fill="#000"/>
+</svg>

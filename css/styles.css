@@ -1,0 +1,471 @@
+/* ==========================================================================
+   Zeaj Zamoranos — portfolio
+   Tokens mirror the Figma "Portfolio / Colors" collection (Light + Dark modes).
+   Breakpoints: Desktop ≥1200 (designed at 1440) · Tablet 810–1199 · Mobile <810
+   ========================================================================== */
+
+/* ---------- custom fonts (self-hosted from assets/fonts) ---------- */
+/* The Gelica demo files ship placeholder glyphs for 4, hyphen, brackets and most symbols;
+   unicode-range limits Gelica to the real glyphs so the rest fall back to Georgia. */
+@font-face { font-family: "Gelica"; src: url("../assets/fonts/gelica-regular.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: swap; unicode-range: U+20, U+2C, U+2E, U+30-33, U+35-3B, U+3F, U+41-5A, U+61-7A, U+A0-FFFF; }
+@font-face { font-family: "Gelica"; src: url("../assets/fonts/gelica-light.otf") format("opentype"); font-weight: 300; font-style: normal; font-display: swap; unicode-range: U+20, U+2C, U+2E, U+30-33, U+35-3B, U+3F, U+41-5A, U+61-7A, U+A0-FFFF; }
+@font-face { font-family: "PP Mondwest"; src: url("../assets/fonts/pp-mondwest-regular.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "PP Neue Montreal Mono"; src: url("../assets/fonts/pp-neue-montreal-mono-book.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "TWK Lausanne"; src: url("../assets/fonts/twk-lausanne-400.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "TWK Lausanne"; src: url("../assets/fonts/twk-lausanne-500.otf") format("opentype"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "TWK Lausanne"; src: url("../assets/fonts/twk-lausanne-600.otf") format("opentype"); font-weight: 600; font-style: normal; font-display: swap; }
+
+:root {
+  /* type */
+  --font-sans: "Helvetica Neue", Helvetica, Arimo, Arial, sans-serif; /* Figma: font/sans */
+  --font-display: "Gelica", Georgia, serif;                           /* headings */
+  --font-pixel: "PP Mondwest", var(--font-sans);                      /* "builds" accent */
+  --font-mono: "PP Neue Montreal Mono", ui-monospace, monospace;      /* clock */
+  --font-body: "TWK Lausanne", "Helvetica Neue", system-ui, sans-serif;
+
+  /* radii (Portfolio / Primitives) */
+  --radius-pill: 16px;
+  --radius-card: 8px;
+  --radius-tag: 12px;
+
+  /* layout */
+  --content-max: 1440px;
+  --sidebar-w: 300px;
+  --page-pad: 40px;
+  --main-pad: 100px 80px;
+
+  /* Light mode */
+  --bg: #f8f8f8;
+  --logo: #000000;
+  --text-heading: #343845;
+  --text-primary: #343845;
+  --text-intro: #393e52;
+  --text-label: #a8b5fd;
+  --text-nav: #707079;
+  --text-link: #343845;
+  --text-clock: #707079;
+  --text-muted: #636981;        /* darkened from #737a92 to pass WCAG AA (≥4.5:1) on every light surface */
+  --text-muted-em: #4c4c4c;
+  --text-muted-alt: #636981;
+  --text-sparkle: #536dff;
+  --text-section: #737a92;
+  --text-card-title: #000000;
+  --nav-active: rgba(219, 230, 255, 0.25);
+  --icon-sun: #656c85;
+  --icon-moon: #657099;
+  --focus: #536dff;
+
+  /* theme-neutral */
+  --card-surface: #f6f0ef;
+  --tag-surface: rgba(251, 251, 251, 0.6);
+  --tag-company: #000000;
+  --tag-type: #66666e;          /* AA on the card surface */
+  --footer-bg: #111827;
+  --footer-text: #c3cfff;
+  --footer-accent: #658aff;
+  --footer-muted: #98a3cc;
+
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg: #111827;
+  --logo: #e2eaff;
+  --text-heading: #e4eaff;
+  --text-primary: #e4eaff;
+  --text-intro: #e4eaff;
+  --text-label: #a8b5fd;
+  --text-nav: #a7b8d5;
+  --text-link: #e1e1ed;
+  --text-clock: #98a3cc;
+  --text-muted: #98a3cc;
+  --text-muted-em: #97afe6;
+  --text-muted-alt: #93a8d7;
+  --text-sparkle: #e4eaff;
+  --text-section: #e4eaff;
+  --text-card-title: #e4eaff;
+  --nav-active: rgba(219, 230, 255, 0.12);
+  --icon-sun: #9ea9cf;
+  --icon-moon: #e2eaff;
+  --focus: #a8b5fd;
+
+  color-scheme: dark;
+}
+
+/* ---------- base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+  transition: background-color .3s ease;
+}
+img { display: block; max-width: none; }
+p, h1, h2, h3, ul { margin: 0; padding: 0; }
+ul { list-style: none; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
+a[aria-disabled="true"] { cursor: default; }  /* links whose URL isn't set yet in js/config.js */
+
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: absolute; left: 16px; top: -48px; z-index: 100;
+  padding: 8px 12px; border-radius: var(--radius-pill);
+  background: var(--bg); color: var(--text-primary); font-size: 14px;
+}
+.skip-link:focus { top: 16px; }
+
+/* ---------- background decoration ---------- */
+/* Rendered from the Figma "decor / light" and "decor / dark" layers (gradient, stars, dot art)
+   over the base color, so blend modes look identical in every browser. 1600px wide, centered. */
+.decor { position: absolute; inset: 0 0 auto 0; height: 1240px; overflow: hidden; pointer-events: none; z-index: -1; }  /* behind page content without isolating it, so blend modes can reach the sky */
+.decor__light, .decor__dark {
+  position: absolute; inset: 0;
+  background-position: center top; background-repeat: no-repeat; background-size: max(100%, 1600px) auto;
+  transition: opacity .4s ease;
+}
+.decor__light { background-image: url("../assets/light-sky.jpg"); }
+.decor__dark { background-image: url("../assets/dark-sky.jpg"); opacity: 0; }
+/* Stitched stars and sparkles over the sky (js/sky.js), in the same 1600px frame as the sky images,
+   covering the top 440px where the stars sit. Both themes. */
+.decor__sky { position: absolute; top: 0; left: 50%; width: max(100%, 1600px); aspect-ratio: 1600 / 440; transform: translateX(-50%); }
+
+/* Twinkle on the dotted ASCII art at the top (same 1600×1240 frame as the sky images).
+   Colors are lighter tints of the art's own blues. */
+.decor__ascii { position: absolute; top: 0; left: 50%; width: max(100%, 1600px); aspect-ratio: 1600 / 1240; transform: translateX(-50%); }
+.ascii-dot {
+  --dot: #8da8ee;                       /* top-right art: #1C52DC lightened */
+  position: absolute; width: 2.2px; height: 2.2px; border-radius: 50%;
+  background: var(--dot); transform: translate(-50%, -50%); opacity: 0;
+  animation: ascii-twinkle 1.6s ease-in-out infinite;
+}
+.ascii-dot--l { --dot: #a9bdf2; }      /* large art, light mode */
+:root[data-theme="dark"] .ascii-dot--l { --dot: #e2eaff; }
+@keyframes ascii-twinkle { 0%, 30%, 100% { opacity: 0; } 65% { opacity: .4; } }
+:root[data-theme="dark"] .decor__light { opacity: 0; }
+:root[data-theme="dark"] .decor__dark { opacity: 1; }
+
+/* ---------- layout ---------- */
+.page {
+  position: relative;
+  display: flex; align-items: flex-start; gap: 10px;
+  width: 100%; max-width: var(--content-max);
+  margin: 0 auto; padding: 0 var(--page-pad);
+}
+.main {
+  flex: 1 1 0; min-width: 0;
+  display: flex; flex-direction: column; gap: 24px;
+  padding: var(--main-pad);
+}
+
+/* ---------- shared text ----------
+   Type scale (both pages):
+     Display   Gelica 28/34            — page name
+     Heading   Gelica Light 18/24      — every section heading (Case Studies, Design ethos, …)
+     Lede      Lausanne 18/26          — intro statement at the top of each page
+     Subhead   Lausanne Medium 16/22   — item titles inside a section
+     Body-lg   Lausanne 16/24          — section intro paragraphs
+     Body      Lausanne 14/20          — paragraphs, list titles, status lines
+     Small     Lausanne 12/18          — meta, dates, organisations, captions
+     Micro     Lausanne 10/12          — tags, numbers, fine print
+   Paragraphs cap at ~68 characters per line for readability. */
+.logo { font-family: var(--font-body); font-size: 16px; line-height: 17px; color: var(--logo); white-space: nowrap; padding: 0 4px; }
+.sparkle { font-family: var(--font-sans); font-weight: 700; font-size: 14px; color: var(--text-sparkle); white-space: pre; }
+.sparkle--small { font-size: 10px; color: var(--text-label); }
+/* Handwritten words: Figma Hand, outlined from Figma as inline SVG (the font isn't licensed for the web).
+   They take the surrounding text color; 1.2em tall with the baseline aligned to the text. */
+.hand { white-space: nowrap; }
+.hand__svg { display: inline-block; height: 1.2em; width: auto; vertical-align: -0.3em; fill: currentColor; overflow: visible; }
+
+/* ---------- sidebar ---------- */
+.sidebar {
+  flex: 0 0 var(--sidebar-w); width: var(--sidebar-w);
+  position: sticky; top: 0;
+  height: 100vh; min-height: 560px; max-height: 900px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 100px 0 50px;
+}
+.sidebar__top { display: flex; flex-direction: column; gap: 48px; }
+.sidebar__explore { display: flex; flex-direction: column; gap: 12px; }
+.sidebar__heading { display: flex; flex-direction: column; gap: 4px; padding: 0 4px; }
+.sidebar__title { font-family: var(--font-display); font-size: 16px; line-height: 14px; letter-spacing: -0.16px; color: var(--text-primary); }
+.nav-list { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.nav-link {
+  display: inline-block; padding: 8px 12px; border-radius: var(--radius-pill);
+  font-size: 14px; line-height: 14px; letter-spacing: -0.14px; color: var(--text-nav);
+  transition: background-color .2s ease, color .2s ease;
+}
+.nav-link:hover { color: var(--text-primary); background: var(--nav-active); }
+.nav-link.is-active { color: var(--text-primary); background: var(--nav-active); }
+
+.sidebar__bottom { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 0 4px; }
+.social-list { display: flex; flex-direction: column; gap: 4px; }
+.social-link {
+  display: inline-flex; align-items: center; gap: 6px; padding: 4px 0;
+  font-family: var(--font-body); font-size: 12px; line-height: 14px; letter-spacing: -0.12px; color: var(--text-link);
+}
+.social-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.social-link__icon {
+  flex: none; fill: none; stroke: currentColor; stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round; opacity: .8;
+}
+.social-link:hover .social-link__icon { opacity: 1; }
+
+.theme-toggle { display: flex; align-items: center; gap: 8px; }
+.theme-toggle__btn { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; opacity: .6; transition: opacity .2s ease; }
+.theme-toggle__btn svg { fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.theme-toggle__btn[data-theme-choice="light"] svg { stroke: var(--icon-sun); }
+.theme-toggle__btn[data-theme-choice="dark"] svg { stroke: var(--icon-moon); }
+.theme-toggle__btn[aria-pressed="true"], .theme-toggle__btn:hover { opacity: 1; }
+
+.clock { font-family: var(--font-mono); font-size: 12px; line-height: 14px; letter-spacing: 0; color: var(--text-clock); font-variant-numeric: tabular-nums; }
+
+/* ---------- intro ---------- */
+.intro { display: flex; flex-direction: column; gap: 16px; }
+.intro__name { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-height: 34px; color: var(--text-heading); }
+.intro__text { display: flex; flex-direction: column; gap: 12px; }
+.intro__lede { font-size: 18px; line-height: 26px; letter-spacing: -0.18px; color: var(--text-intro); }
+.intro__lede .builds { font-family: var(--font-pixel); font-size: 23px; letter-spacing: -0.23px; }
+.intro__lede .comma { font-weight: 600; }
+.intro__meta { font-size: 14px; line-height: 20px; letter-spacing: -0.14px; color: var(--text-muted); }
+.intro__school { color: var(--text-muted-em); }
+.intro__meta-alt { color: var(--text-muted-alt); }
+/* "Open to…" line is an email link: a touch bolder on hover, with a hint fading in underneath */
+.intro__email { position: relative; display: inline-block; transition: color .2s ease; }
+.intro__meta:has(.intro__email) { padding-bottom: 20px; } /* room for the hover hint, so it never crowds the sparkle row */
+.intro__email:hover, .intro__email:focus-visible { font-weight: 500; color: var(--text-primary); }
+.intro__email-hint {
+  position: absolute; left: 0; top: 100%; margin-top: 2px; white-space: nowrap; pointer-events: none;
+  font-weight: 400; font-size: 12px; line-height: 16px; color: var(--text-muted);
+  opacity: 0; translate: 0 -3px; transition: opacity .2s ease, translate .2s ease;
+}
+.intro__email:hover .intro__email-hint, .intro__email:focus-visible .intro__email-hint { opacity: 1; translate: 0 0; }
+
+/* ---------- case studies ---------- */
+.case-studies .section-title { font-weight: 400; font-size: 16px; line-height: 20px; letter-spacing: 0; }
+.case-studies { display: flex; flex-direction: column; gap: 16px; scroll-margin-top: 40px; } /* linked from the nav as /#case-studies */
+.section-title, .about-heading { font-family: var(--font-display); font-weight: 300; font-size: 18px; line-height: 24px; letter-spacing: -0.18px; color: var(--text-section); }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 24px; }
+.card { display: flex; flex-direction: column; gap: 8px; }
+.card__media {
+  position: relative; height: 280px; overflow: hidden;
+  border-radius: var(--radius-card); background: var(--card-surface);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.card__media::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset -4px 12px 50px rgba(234, 236, 241, .5); pointer-events: none; }
+.card__glow { position: absolute; left: 0; top: 159px; width: 477px; height: 181px; }
+.card__glow img { position: absolute; top: -152px; right: -110px; bottom: -205px; left: -284px; width: calc(100% + 394px); height: calc(100% + 357px); }
+.card__company { color: var(--tag-company); }
+.card__type { color: var(--tag-type); }
+.card__type::before { content: "•"; margin: 0 6px; }
+.card__title { font-weight: 400; font-size: 14px; line-height: 20px; letter-spacing: -0.14px; color: var(--text-card-title); }
+.card__company-name { color: var(--text-muted); }
+/* Title row under the cover: title left, year pill right (Figma "Case Study Card") */
+.card__info { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card__meta {
+  flex: none; padding: 4px 8px; border-radius: 8px; background: rgba(255, 255, 255, .6);
+  box-shadow: inset 0 0 0 1px rgba(115, 122, 146, .12);
+  font-size: 10px; line-height: 12px; color: var(--text-intro); white-space: nowrap;
+}
+:root[data-theme="dark"] .card__meta { background: rgba(226, 234, 255, .1); box-shadow: none; color: var(--text-muted); }
+
+/* Covers: artwork from the Figma covers, positioned in % of the 433×280 card so they scale */
+.cover > img, .cover > div:not(.card__glow) { position: absolute; }
+.cover__bg { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.cover--redcan { background: #f8f8f8; } /* light in both themes, like the other covers, so the logo stays legible */
+.cover__logo { left: 50%; top: 50%; width: 30%; height: auto; translate: -50% -50%; }
+.cover__screen {
+  left: 9.7%; top: 13.2%; width: 79%; aspect-ratio: 342 / 196; overflow: hidden; border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(56, 56, 57, .24), 0 9px 9px rgba(56, 56, 57, .2), 0 21px 12px rgba(56, 56, 57, .12), 0 36px 15px rgba(56, 56, 57, .04);
+}
+.cover__screen img { position: absolute; left: -.13%; top: -12.89%; width: 100.26%; height: 113.08%; max-width: none; }
+.cover__phone { left: 50%; top: 7.1%; height: 87.1%; width: auto; translate: -50% 0; border-radius: 12px; }
+/* Photo covers: no glow or inner haze over the artwork, so the covers read clearly */
+.cover--docufy .card__glow, .cover--flento .card__glow { display: none; }
+.cover--docufy::after, .cover--flento::after { box-shadow: none; }
+.cover--technoring {
+  background: radial-gradient(ellipse 150% 95% at 50% 5%, #ddeeff 0%, #d8f2ff 41%, #f5fbff 77%);
+}
+.card:hover .card__media { transform: translateY(-2px) rotate(.8deg); box-shadow: 0 10px 30px rgba(17, 24, 39, .08); }
+.card-grid > li:nth-child(even) .card:hover .card__media { transform: translateY(-2px) rotate(-.8deg); } /* alternate the tilt */
+@media (prefers-reduced-motion: reduce) { .card:hover .card__media, .card-grid > li:nth-child(even) .card:hover .card__media { transform: translateY(-2px); } }
+/* "View project" pill — centered by default (keyboard focus / no JS); while the mouse is over the
+   image, main.js moves it with a GPU transform (--x/--y), so tracking never triggers layout. */
+.card__cta {
+  position: absolute; left: 50%; top: 50%; z-index: 2;
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 6px 12px; border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, .92);
+  box-shadow: 0 1px 2px rgba(17, 24, 39, .08), 0 4px 14px rgba(17, 24, 39, .06);
+  font-size: 12px; line-height: 14px; letter-spacing: -0.12px; color: #343845; white-space: nowrap;
+  opacity: 0; translate: -50% -50%; scale: .9; pointer-events: none;
+  will-change: translate, opacity;
+  transition: opacity .18s ease-out, scale .2s cubic-bezier(.2, .8, .2, 1);
+}
+.card__media.is-tracking .card__cta { left: 0; top: 0; translate: var(--x, 0) var(--y, 0); }
+.card__cta svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.card:hover .card__cta, .card:focus-visible .card__cta { opacity: 1; scale: 1; }
+@media (hover: none) { .card:hover .card__cta { opacity: 0; } }
+
+/* ---------- footer ---------- */
+.footer { position: relative; z-index: 1; overflow: hidden; background: var(--footer-bg); padding: 104px 0; margin-top: 0; }
+.footer__content {
+  position: relative; z-index: 1;
+  /* Halo in the footer color keeps text legible wherever the dot art crosses it */
+  text-shadow: 0 0 2px var(--footer-bg), 0 0 6px var(--footer-bg), 0 0 12px var(--footer-bg);
+  display: flex; align-items: center; justify-content: space-between; gap: 32px;
+  max-width: var(--content-max); margin: 0 auto; padding: 0 60px;
+}
+.footer__name { display: flex; flex-direction: column; gap: 12px; }
+.footer__made { font-family: var(--font-display); font-weight: 300; font-size: 14px; line-height: 16px; color: var(--footer-text); }
+.hand--accent { color: var(--footer-accent); }
+.footer__built { display: flex; align-items: center; gap: 4px; margin-top: -8px; font-size: 10px; line-height: 12px; color: var(--footer-muted); }
+.footer__copy { font-size: 10px; line-height: 12px; color: var(--footer-muted); }
+.footer__links { display: flex; gap: 48px; }
+/* Night sky (js/nebula.js): a canvas behind the name and links, edge to edge across the footer,
+   padding included. Canvases don't stretch between top and bottom, so its height is set explicitly. */
+.footer__name, .footer__links { position: relative; z-index: 1; }
+.footer__sky {
+  position: absolute; z-index: 0; top: -104px; left: 50%; transform: translateX(-50%);
+  width: 100vw; height: calc(100% + 208px);
+  mix-blend-mode: plus-lighter; touch-action: pan-y; /* pointer interacts; vertical scrolling still works */
+}
+.footer__links ul { display: flex; flex-direction: column; gap: 8px; }
+.footer__links a { font-size: 12px; line-height: 14px; color: var(--footer-muted); transition: color .2s ease; }
+.footer__links a:hover { color: var(--footer-text); }
+
+/* ---------- mobile top bar (hidden on desktop/tablet) ---------- */
+.topbar { display: none; }
+.icon { fill: none; stroke: var(--text-primary); stroke-width: 1.5; stroke-linecap: round; }
+.icon--close { display: none; }
+
+/* ==========================================================================
+   Tablet 810–1199
+   ========================================================================== */
+@media (max-width: 1199.98px) {
+  :root { --sidebar-w: 220px; --page-pad: 32px; --main-pad: 80px 16px 80px 48px; }
+}
+
+/* ==========================================================================
+   Mobile <810 — sidebar becomes a full-screen menu
+   ========================================================================== */
+@media (max-width: 809.98px) {
+  :root { --page-pad: 20px; --main-pad: 32px 0 64px; }
+
+  .topbar {
+    position: sticky; top: 0; z-index: 30;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 12px 12px 20px;
+  }
+  .topbar::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: color-mix(in srgb, var(--bg) 70%, transparent);
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  }
+  .case-studies { scroll-margin-top: 88px; } /* clear the sticky top bar */
+  .menu-button { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; }
+
+  .page { flex-direction: column; gap: 0; }
+  .main { width: 100%; }
+
+  .sidebar {
+    position: fixed; inset: 64px 0 0 0; z-index: 25;
+    width: auto; height: auto; max-height: none; min-height: 0;
+    padding: 24px 24px 40px; overflow-y: auto;
+    background: var(--bg);
+    visibility: hidden; opacity: 0; transform: translateY(-8px);
+    transition: opacity .2s ease, transform .2s ease, visibility 0s linear .2s;
+  }
+  .sidebar__logo { display: none; }
+  .nav-link { font-size: 18px; line-height: 20px; padding: 10px 14px; }
+  .social-link { font-size: 14px; line-height: 18px; padding: 6px 0; gap: 8px; }
+  .social-link__icon { width: 14px; height: 14px; }
+
+  .menu-open { overflow: hidden; }
+  .menu-open .topbar::before { background: var(--bg); }
+  .menu-open .sidebar { visibility: visible; opacity: 1; transform: none; transition: opacity .2s ease, transform .2s ease; }
+  .menu-open .icon--menu { display: none; }
+  .menu-open .icon--close { display: block; }
+
+  .br-wide { display: none; }
+
+  .footer { padding: 56px 0 48px; }
+  .footer__content { flex-direction: column; align-items: flex-start; padding: 0 20px; }
+  .footer__sky { top: -56px; height: calc(100% + 104px); }
+}
+
+/* ==========================================================================
+   Page transitions — native cross-document view transitions (no JS).
+   Content crossfades; sidebar and mobile top bar stay put. Unsupported browsers navigate normally.
+   ========================================================================== */
+@view-transition { navigation: auto; }
+.sidebar { view-transition-name: sidebar; }
+.topbar { view-transition-name: topbar; }
+::view-transition-group(sidebar), ::view-transition-group(topbar) { animation-duration: 0s; }
+
+/* Background, sky and footer (root) barely change between pages: a short, even crossfade. */
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .2s; animation-timing-function: ease-out; }
+
+/* Main content gets its own layer ONLY during a page change (html.vt, set by theme-init.js).
+   Naming it permanently would isolate it and break the About collage's color-dodge over the sky. */
+html.vt .main { view-transition-name: content; }
+html.vt .collage__surface { visibility: hidden; }   /* the dodge can't blend while isolated; hide it for the 0.4s */
+::view-transition-group(content) { animation-duration: 0s; }
+/* Browsers blend old+new with additive plus-lighter by default; with different pages that
+   washes out into a bright flash, so use a normal crossfade instead. */
+::view-transition-old(content), ::view-transition-new(content) { mix-blend-mode: normal; }
+::view-transition-old(content) { animation: vt-content-out .2s ease-out both; }
+::view-transition-new(content) { animation: vt-content-in .4s cubic-bezier(.4, 0, .2, 1) both; }
+@keyframes vt-content-out { to { opacity: 0; filter: blur(4px); } }
+@keyframes vt-content-in { from { opacity: 0; filter: blur(6px); translate: 0 6px; } }
+
+/* Media blur-in as images load (class added by main.js, so images stay visible without JS) */
+.media-fade { opacity: 0; filter: blur(6px); transition: opacity .5s cubic-bezier(.4, 0, .2, 1), filter .5s cubic-bezier(.4, 0, .2, 1); }
+.media-fade.is-loaded { opacity: 1; filter: none; }
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+  .media-fade { opacity: 1; filter: none; transition: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+  .decor__ascii { display: none; } /* the sky images already contain the static art */
+}
+
+/* ==========================================================================
+   Scroll reveal (js/reveal.js): content fades up as it enters the viewport.
+   Only applies once the script has run, so nothing stays hidden without JS.
+   Ends on opacity 1 / translate none, so no stacking context is left behind
+   (blend modes, like the dark collage's color-dodge, still reach the sky).
+   ========================================================================== */
+.reveal-ready .reveal {
+  opacity: 0; translate: 0 28px;
+  transition: opacity .8s cubic-bezier(.2, .7, .2, 1), translate .8s cubic-bezier(.2, .7, .2, 1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+.reveal-ready .reveal.is-visible { opacity: 1; translate: none; }
+@media (prefers-reduced-motion: reduce) { .reveal-ready .reveal { opacity: 1; translate: none; transition: none; } }
+
+/* ==========================================================================
+   "Coming soon" placeholder: Playground and case studies still being rewritten
+   ========================================================================== */
+.soon { min-height: 60vh; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 12px; padding: 40px 0 80px; }
+.soon__title { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-height: 34px; color: var(--text-heading); }
+.soon__badge {
+  padding: 4px 10px; border-radius: var(--radius-pill); background: var(--nav-active);
+  font-size: 14px; line-height: 16px; letter-spacing: .02em; color: var(--text-primary);
+}
+.soon__text { max-width: 46ch; font-size: 16px; line-height: 24px; letter-spacing: -0.16px; color: var(--text-muted-em); }
+.soon__back { margin-top: 8px; font-size: 12px; line-height: 18px; color: var(--text-muted); transition: color .2s ease, translate .2s ease; }
+.soon__back:hover { color: var(--text-primary); translate: -2px 0; }

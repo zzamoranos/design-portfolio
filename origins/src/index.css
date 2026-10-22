@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #faf8f5;
+  --color-surface: #ffffff;
+  --color-text: #1a1a1a;
+  --color-muted: #6b6b6b;
+  --color-hairline: #ece8e2;
+  --color-gold: #e0a63a;
+  --color-ink: #b8433a;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Noto Serif", ui-serif, Georgia, "Times New Roman", serif;
+
+  --shadow-soft: 0 1px 2px rgb(26 26 26 / 0.04), 0 8px 24px rgb(26 26 26 / 0.06);
+  --shadow-lift: 0 2px 4px rgb(26 26 26 / 0.05), 0 16px 40px rgb(26 26 26 / 0.1);
+}
+
+:root {
+  /* Safe areas. Inside the desktop phone frame these are simulated. */
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+}
+
+.in-frame {
+  --sat: 54px;
+  --sab: 34px;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #efebe5;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "ss01", "cv11";
+}
+
+@media (max-width: 500px) {
+  body {
+    background: var(--color-bg);
+  }
+}
+
+.pt-safe {
+  padding-top: calc(var(--sat) + 8px);
+}
+.pb-safe {
+  padding-bottom: calc(var(--sab) + 16px);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+button:disabled {
+  cursor: default;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+/* Room for the bottom tab bar */
+.pb-tab {
+  padding-bottom: calc(var(--sab) + 96px);
+}

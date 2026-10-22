@@ -1,0 +1,14 @@
+.claude/
+.DS_Store
+.vercel/
+node_modules/
+.vercel
+
+# Untouched photo originals (contain location/camera metadata); never publish
+_archive/originals/
+
+# Full case studies still being rewritten (local only until they are ready)
+redcan.html
+techno-ring.html
+assets/case-studies/redcan/
+assets/case-studies/techno-ring/
