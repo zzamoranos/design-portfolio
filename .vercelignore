@@ -1,0 +1,21 @@
+# Never upload local tooling, drafts or system files
+.claude/
+.DS_Store
+.gitignore
+README.md
+_headers
+content/
+origins/
+_archive/
+
+# Full case study pages are unlinked while they're rewritten (the site shows soon-*.html instead).
+# Keep them, and their screens, off the public site until each one is ready. To publish one:
+# delete its lines here and point its link in js/config.js back to the full page.
+redcan.html
+techno-ring.html
+soon-docufy.html
+soon-flento.html
+assets/case-studies/redcan/
+assets/case-studies/techno-ring/
+# Flento's old screens (the live page uses assets/case-studies/flento/v2/)
+assets/case-studies/flento/*.png
