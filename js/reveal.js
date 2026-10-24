@@ -20,9 +20,12 @@
       e.target.classList.add('is-visible');
       io.unobserve(e.target); // reveal once
     });
-  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0 }); // any part in view: a ratio threshold can't be met by sections taller than the screen
 
+  // Arriving by page transition (html.vt): what's already on screen comes in with the crossfade instead
+  var pageChange = document.documentElement.classList.contains('vt');
   Array.prototype.forEach.call(targets, function (el) {
+    if (pageChange && el.getBoundingClientRect().top < window.innerHeight) return;
     // cards in the same row arrive one after another
     if (el.parentNode.classList.contains('card-grid')) {
       var i = Array.prototype.indexOf.call(el.parentNode.children, el);

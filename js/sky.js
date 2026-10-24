@@ -163,13 +163,13 @@
   }
 
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var running = false, raf = 0, last = 0, start = performance.now(), visible = true;
+  var running = false, raf = 0, last = 0, start = performance.now() - (Date.now() - (window.SKY_EPOCH || Date.now())), visible = true;
   function tnow() { return (performance.now() - start) / 1000; }
   function tick(ts) { raf = requestAnimationFrame(tick); if (ts - last < 33) return; last = ts; frame((ts - start) / 1000); }
   function play() { if (!running && !reduce) { running = true; raf = requestAnimationFrame(tick); } }
   function stop() { running = false; cancelAnimationFrame(raf); }
 
-  resize(); frame(reduce ? 2 : 0);
+  resize(); frame(reduce ? 2 : tnow());
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { markBlocked(); frame(tnow()); }); // text settles once fonts load
   // resize and theme changes rebuild the sprites at most once per frame
   var pending = 0;

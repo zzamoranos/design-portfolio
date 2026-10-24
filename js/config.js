@@ -9,7 +9,7 @@ window.SITE_CONFIG = {  emailUser: 'zeajzamoranos',
     playground: '/playground.html',
     about: '',
     'case-redcan': '/soon-redcan.html',      // full page: '/redcan.html'
-    'case-karbon': '/karbon.html',           // placeholder: '/soon-docufy.html'
+    'case-docufy': '/docufy.html',
     'case-technoring': '/soon-techno-ring.html',  // full page: '/techno-ring.html'
     'case-flento': '/flento.html'            // placeholder: '/soon-flento.html'
   },

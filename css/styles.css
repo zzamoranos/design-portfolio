@@ -99,6 +99,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: 
 body {
   margin: 0;
   min-height: 100vh;
+  display: flex; flex-direction: column;   /* .page grows so the footer always sits at the bottom of the window */
   background: var(--bg);
   color: var(--text-primary);
   font-family: var(--font-body);
@@ -129,7 +130,7 @@ a[aria-disabled="true"] { cursor: default; }  /* links whose URL isn't set yet i
 /* ---------- background decoration ---------- */
 /* Rendered from the Figma "decor / light" and "decor / dark" layers (gradient, stars, dot art)
    over the base color, so blend modes look identical in every browser. 1600px wide, centered. */
-.decor { position: absolute; inset: 0 0 auto 0; height: 1240px; overflow: hidden; pointer-events: none; z-index: -1; }  /* behind page content without isolating it, so blend modes can reach the sky */
+.decor { position: absolute; inset: 0 0 auto 0; height: 1240px; max-height: 100%; overflow: hidden; pointer-events: none; z-index: -1; }  /* behind page content without isolating it, so blend modes can reach the sky; capped at the page height so short pages don't scroll past the footer */
 .decor__light, .decor__dark {
   position: absolute; inset: 0;
   background-position: center top; background-repeat: no-repeat; background-size: max(100%, 1600px) auto;
@@ -160,6 +161,7 @@ a[aria-disabled="true"] { cursor: default; }  /* links whose URL isn't set yet i
 .page {
   position: relative;
   display: flex; align-items: flex-start; gap: 10px;
+  flex: 1 0 auto;
   width: 100%; max-width: var(--content-max);
   margin: 0 auto; padding: 0 var(--page-pad);
 }
@@ -314,7 +316,8 @@ a[aria-disabled="true"] { cursor: default; }  /* links whose URL isn't set yet i
   transition: opacity .18s ease-out, scale .2s cubic-bezier(.2, .8, .2, 1);
 }
 .card__media.is-tracking .card__cta { left: 0; top: 0; translate: var(--x, 0) var(--y, 0); }
-.card__cta svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.card__cta--coming-soon { gap: 6px; background: var(--bg); color: var(--text-primary); }
+.card__cta--coming-soon::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--text-sparkle); }
 .card:hover .card__cta, .card:focus-visible .card__cta { opacity: 1; scale: 1; }
 @media (hover: none) { .card:hover .card__cta { opacity: 0; } }
 
@@ -420,7 +423,8 @@ a[aria-disabled="true"] { cursor: default; }  /* links whose URL isn't set yet i
 /* Main content gets its own layer ONLY during a page change (html.vt, set by theme-init.js).
    Naming it permanently would isolate it and break the About collage's color-dodge over the sky. */
 html.vt .main { view-transition-name: content; }
-html.vt .collage__surface { visibility: hidden; }   /* the dodge can't blend while isolated; hide it for the 0.4s */
+html.vt .collage__surface { opacity: 0; transition: none; }   /* the dodge can't blend while isolated; hide it for the 0.4s, then fade back */
+html.vt .reveal, html.vt .media-fade { transition: none !important; }   /* settle on-screen content instantly (theme-init.js) */
 ::view-transition-group(content) { animation-duration: 0s; }
 /* Browsers blend old+new with additive plus-lighter by default; with different pages that
    washes out into a bright flash, so use a normal crossfade instead. */
@@ -464,7 +468,7 @@ html.vt .collage__surface { visibility: hidden; }   /* the dodge can't blend whi
 .soon__title { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-height: 34px; color: var(--text-heading); }
 .soon__badge {
   padding: 4px 10px; border-radius: var(--radius-pill); background: var(--nav-active);
-  font-size: 14px; line-height: 16px; letter-spacing: .02em; color: var(--text-primary);
+  font-size: 12px; line-height: 16px; letter-spacing: .02em; color: var(--text-primary);
 }
 .soon__text { max-width: 46ch; font-size: 16px; line-height: 24px; letter-spacing: -0.16px; color: var(--text-muted-em); }
 .soon__back { margin-top: 8px; font-size: 12px; line-height: 18px; color: var(--text-muted); transition: color .2s ease, translate .2s ease; }

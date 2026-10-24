@@ -93,7 +93,9 @@
   document.querySelectorAll('.gallery img, .collage img').forEach(function (img) {
     img.classList.add('media-fade');
     var show = function () { img.classList.add('is-loaded'); };
-    if (img.complete && img.naturalWidth) requestAnimationFrame(show);
+    if (img.complete && img.naturalWidth) {
+      if (document.documentElement.classList.contains('vt')) show(); else requestAnimationFrame(show);  // no blur-in under a page transition
+    }
     else { img.addEventListener('load', show, { once: true }); img.addEventListener('error', show, { once: true }); }
   });
 

@@ -25,7 +25,7 @@
 .collage__surface { display: none; }
 :root[data-theme="dark"] .collage__surface {
   display: block; position: absolute; inset: 0; border-radius: 8px; overflow: hidden;
-  mix-blend-mode: color-dodge; isolation: isolate;
+  mix-blend-mode: color-dodge; isolation: isolate; transition: opacity .3s ease;
 }
 .collage__grid, .collage__texture { position: absolute; inset: 0; background-position: center; background-size: cover; background-repeat: no-repeat; }
 .collage__grid { background-image: url("../assets/about/collage-dark-grid.png"); opacity: .8; }
@@ -228,6 +228,16 @@
 .ethos__num { font-weight: 600; font-size: 10px; line-height: 12px; letter-spacing: .04em; color: var(--text-muted); font-variant-numeric: tabular-nums; }
 .ethos__title { font-weight: 500; font-size: 16px; line-height: 22px; letter-spacing: -0.16px; color: var(--text-primary); }
 .ethos__list p { font-size: 14px; line-height: 20px; letter-spacing: -0.14px; color: var(--text-muted-em); }
+/* "Small" and "micro-interactions" practise what they say: they shrink and fade on hover, then spring back */
+.ethos__shrink {
+  display: inline-block; cursor: default;
+  transition: transform .55s cubic-bezier(.34, 1.8, .5, 1), color .3s ease, opacity .3s ease;   /* overshoot = the bounce */
+}
+.ethos__shrink:hover {
+  transform: scale(.88); color: var(--text-muted); opacity: .7;
+  transition: transform .2s ease-out, color .2s ease, opacity .2s ease;
+}
+@media (prefers-reduced-motion: reduce) { .ethos__shrink, .ethos__shrink:hover { transform: none; } }
 
 /* ---------- experience / community / awards: stacked accordion ---------- */
 .timeline-groups { display: flex; flex-direction: column; gap: 14px; }
