@@ -209,7 +209,7 @@
 
   // ---- loop: only while on screen; reduced motion gets one still frame ----
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var running = false, raf = 0, last = 0, start = performance.now(), visible = false, rz = 0;
+  var running = false, raf = 0, last = 0, start = performance.now() - (Date.now() - (window.SKY_EPOCH || Date.now())), visible = false, rz = 0;
   function tnow() { return (performance.now() - start) / 1000; }
   function tick(ts) { raf = requestAnimationFrame(tick); if (ts - last < 33) return; last = ts; frame((ts - start) / 1000); }
   function play() { if (!running && !reduce) { running = true; raf = requestAnimationFrame(tick); } }
@@ -217,7 +217,8 @@
   // rebuilding the sky is not free, so wait for the resize to settle
   function onResize() { clearTimeout(rz); rz = setTimeout(function () { if (resize()) frame(tnow()); }, 120); }
 
-  resize(true); frame(reduce ? 4 : 0);
+  nextMeteor = tnow() + 1.2;
+  resize(true); frame(reduce ? 4 : tnow());
   window.addEventListener('resize', onResize);
   // the quiet zones follow the footer text, which shifts once the web fonts arrive
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { resize(true); frame(tnow()); });
