@@ -294,8 +294,8 @@ a[aria-disabled="true"] { cursor: default; }  /* links whose URL isn't set yet i
 .cover__screen img { position: absolute; left: -.13%; top: -12.89%; width: 100.26%; height: 113.08%; max-width: none; }
 .cover__phone { left: 50%; top: 7.1%; height: 87.1%; width: auto; translate: -50% 0; border-radius: 12px; }
 /* Photo covers: no glow or inner haze over the artwork, so the covers read clearly */
-.cover--docufy .card__glow, .cover--flento .card__glow { display: none; }
-.cover--docufy::after, .cover--flento::after { box-shadow: none; }
+.cover--docufy .card__glow, .cover--flento .card__glow, .cover--remo .card__glow { display: none; }
+.cover--docufy::after, .cover--flento::after, .cover--remo::after { box-shadow: none; }
 .cover--technoring {
   background: radial-gradient(ellipse 150% 95% at 50% 5%, #ddeeff 0%, #d8f2ff 41%, #f5fbff 77%);
 }

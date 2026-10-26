@@ -19,3 +19,6 @@ assets/case-studies/redcan/
 assets/case-studies/techno-ring/
 # Flento's old screens (the live page uses assets/case-studies/flento/v2/)
 assets/case-studies/flento/*.png
+
+# Remo case study: scaffolded, not linked or published yet (the home card links to the Figma deck)
+remo.html
