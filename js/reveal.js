@@ -10,7 +10,7 @@
     '.main--about > section:not(:first-child)',
     '.card-grid > li',
     '.case__stats', '.case__outcome', '.case__meta', '.case__toc',
-    '.case__figure--hero', '.case__phones--hero', '.dc-hero', '.case__section', '.cs-section', '.cs-hero', '.cs-meta', '.case__next'
+    '.case__figure--hero', '.case__phones--hero', '.dc-hero', '.case__section', '.cs-section', '.main--playground > .pg-section', '.cs-hero', '.cs-meta', '.case__next'
   ].join(', '));
   if (!targets.length) return;
 
