@@ -1,0 +1,58 @@
+/* ==========================================================================
+   Playground: visual arts gallery + written pieces (shares tokens with styles.css)
+   Spacing matches the About page: 120 / 96 / 64px between sections.
+   ========================================================================== */
+.main--playground { gap: 80px; padding: 100px 40px; }
+
+.pg-intro { display: flex; flex-direction: column; gap: 12px; padding-top: 20px; margin-bottom: -32px; } /* intro sits closer to the first section than sections sit to each other */
+.pg-title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 24px; line-height: 30px; color: var(--text-heading); }
+.pg-lede { max-width: 56ch; font-size: 16px; line-height: 24px; letter-spacing: -0.16px; color: var(--text-intro); }
+
+.pg-section { display: flex; flex-direction: column; gap: 24px; }
+.pg-head { display: flex; flex-direction: column; gap: 4px; }
+.pg-head .section-title { margin: 0; }
+.pg-sub { font-size: 14px; line-height: 20px; letter-spacing: -0.14px; color: var(--text-muted); }
+.pg-link { color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; transition: color .2s ease; }
+.pg-link:hover { color: var(--text-sparkle); }
+
+/* Visual arts: justified rows. Each piece grows in proportion to its shape (see the --ar classes), so every piece in a
+   row is the same height and the row runs edge to edge. Nothing is cropped and there is no empty space around a piece. */
+.pg-gallery { display: flex; flex-direction: column; gap: 36px; }
+.pg-row { display: flex; gap: 16px; align-items: flex-start; }
+.pg-item { margin: 0; min-width: 0; flex: 1 1 0; display: flex; flex-direction: column; gap: 10px; transition: opacity .25s ease; }
+.pg-a1 { flex-grow: 1.709; } .pg-a2 { flex-grow: 0.565; } .pg-a3 { flex-grow: 0.577; }   /* width / height of each piece */
+.pg-a4 { flex-grow: 1.778; } .pg-a5 { flex-grow: 1.006; }
+.pg-tile { overflow: hidden; border-radius: 4px; box-shadow: 0 2px 10px rgba(17, 24, 39, .08); }
+.pg-tile img { display: block; width: 100%; height: auto; transition: transform .45s cubic-bezier(.2, .8, .2, 1); }
+.pg-cap { display: flex; gap: 8px; font-size: 12px; line-height: 16px; letter-spacing: -0.12px; color: var(--text-muted); }
+.pg-cap > span { color: var(--text-primary); font-variant-numeric: tabular-nums; }
+:root[data-theme="dark"] .pg-tile { box-shadow: 0 0 0 1px rgba(226, 234, 255, .1); }
+/* Hover: the piece zooms slightly inside its frame and the others step back */
+.pg-item:hover .pg-tile img { transform: scale(1.04); }
+.pg-gallery:has(.pg-item:hover) .pg-item:not(:hover) { opacity: .5; }
+
+/* Written pieces: thumbnail, title, source */
+.pg-posts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+.pg-post { display: flex; flex-direction: column; gap: 8px; }
+.pg-post img { display: block; width: 100%; height: auto; border-radius: var(--radius-card); box-shadow: 0 0 0 1px rgba(17, 24, 39, .06); transition: transform .3s ease, box-shadow .3s ease; }
+.pg-post__title { font-size: 14px; line-height: 20px; letter-spacing: -0.14px; color: var(--text-card-title); }
+.pg-post__meta { font-size: 12px; line-height: 16px; color: var(--text-muted); }
+.pg-post:hover img, .pg-post:focus-visible img { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(17, 24, 39, .1); }
+.pg-post:hover .pg-post__title { color: var(--text-primary); }
+:root[data-theme="dark"] .pg-post img { box-shadow: 0 0 0 1px rgba(226, 234, 255, .1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-item:hover .pg-tile img, .pg-post:hover img { transform: none; }
+}
+@media (hover: none) { .pg-gallery:has(.pg-item:hover) .pg-item:not(:hover) { opacity: 1; } }
+
+@media (max-width: 1199.98px) { .main--playground { padding: 80px 16px 80px 32px; gap: 72px; } }
+@media (max-width: 809.98px) {
+  .main--playground { padding: 32px 0 64px; gap: 56px; }
+  .pg-intro { padding-top: 0; margin-bottom: -16px; }
+  /* phones: pieces stack full width, in numbered order */
+  .pg-gallery, .pg-row { gap: 24px; }
+  .pg-row { flex-direction: column; align-items: stretch; }
+  .pg-item { flex: none; }
+  .pg-posts { grid-template-columns: 1fr; gap: 28px; }
+}

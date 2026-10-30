@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Playground — Zeaj Zamoranos</title>
-  <meta name="description" content="Playground: side projects and experiments by Zeaj Zamoranos. Coming soon.">
+  <meta name="description" content="Playground: art, sketches and writing by Zeaj Zamoranos.">
   <meta name="color-scheme" content="light dark">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <!-- Sets the theme before first paint to avoid a light/dark flash. External file so the CSP needs no 'unsafe-inline'. -->
@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&display=swap">
   <link rel="stylesheet" href="css/styles.css?v=44">
+  <link rel="stylesheet" href="css/playground.css?v=3">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -81,13 +82,66 @@
       </div>
     </nav>
 
-    <main class="main main--soon" id="main">
-      <section class="soon" aria-labelledby="soon-title">
-        <p class="sparkle" aria-hidden="true">. ܁₊ ⊹ . ܁˖ .</p>
-        <h1 class="soon__title" id="soon-title">Playground</h1>
-        <p class="soon__badge">Coming soon</p>
-        <p class="soon__text">A home for side projects, experiments and the little things I’m tinkering with. Still under construction, so check back soon <span aria-hidden="true">⊹ ࣪ ˖</span></p>
-        <a class="soon__back" href="./"><span aria-hidden="true">←</span> Back to home</a>
+    <main class="main main--playground" id="main">
+      <header class="pg-intro">
+        <h1 class="pg-title">Playground</h1>
+        <p class="pg-lede">My love for creating extends through all parts of my life. Take a glimpse into some of the things I’ve made!</p>
+      </header>
+
+      <section class="pg-section" aria-labelledby="art-title">
+        <div class="pg-head">
+          <h2 class="section-title" id="art-title">Visual arts</h2>
+          <p class="pg-sub">From sketching, digital art, 3D modelling, and more.</p>
+        </div>
+        <div class="pg-gallery">
+          <div class="pg-row">
+            <figure class="pg-item pg-a1">
+              <div class="pg-tile"><img src="assets/playground/island-blender.jpg" alt="A low-poly 3D floating island with a waterfall, large trees and a standing character, modelled in Blender" width="1126" height="659" loading="lazy"></div>
+              <figcaption class="pg-cap"><span>01</span> Conceptual Pokémon island design, built in Blender</figcaption>
+            </figure>
+            <figure class="pg-item pg-a2">
+              <div class="pg-tile"><img src="assets/playground/digital-drawing.jpg" alt="A digital painting of a woman with long dark hair looking over her shoulder, in blue and violet tones with loose white line work" width="791" height="1400" loading="lazy"></div>
+              <figcaption class="pg-cap"><span>02</span> Digital drawing</figcaption>
+            </figure>
+            <figure class="pg-item pg-a3">
+              <div class="pg-tile"><img src="assets/playground/pencil-sketch.jpg" alt="A pencil portrait of a woman with long hair, half her face drawn realistically and half as a mechanical eye and metal plating" width="808" height="1400" loading="lazy"></div>
+              <figcaption class="pg-cap"><span>03</span> Charcoal sketch</figcaption>
+            </figure>
+          </div>
+          <div class="pg-row">
+            <figure class="pg-item pg-a4">
+              <div class="pg-tile"><img src="assets/playground/capstone-blue.jpg" alt="A glowing blue illustration of two people looking at a pile of medical paperwork and pill bottles, with a signpost in the distance and the words “navigating healthcare without a map”" width="1600" height="900" loading="lazy"></div>
+              <figcaption class="pg-cap"><span>04</span> Art piece for my capstone project</figcaption>
+            </figure>
+            <figure class="pg-item pg-a5">
+              <div class="pg-tile"><img src="assets/playground/personal-colour-analysis.jpg" alt="A graphic titled “Personal Colour Analysis” in pink and white lettering on a soft, textured purple background, with stars, a camera showing colour swatches and a palette, made in collaboration with L Beauty" width="1179" height="1172" loading="lazy"></div>
+              <figcaption class="pg-cap"><span>05</span> Graphic design</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="pg-section" aria-labelledby="writing-title">
+        <div class="pg-head">
+          <h2 class="section-title" id="writing-title">Written pieces</h2>
+          <p class="pg-sub">Some pieces of content I’ve written for <a class="pg-link" href="https://www.instagram.com/uw_ux/" target="_blank" rel="noopener noreferrer">UW/UX<span class="visually-hidden"> (opens Instagram in a new tab)</span></a>.</p>
+        </div>
+        <ul class="pg-posts">
+          <li>
+            <a class="pg-post" href="https://uwux.medium.com/breaking-barriers-how-to-design-accessibly-e284c9b49708" target="_blank" rel="noopener noreferrer">
+              <img src="assets/playground/uwux-accessibility.jpg" alt="" width="720" height="377" loading="lazy">
+              <span class="pg-post__title">Embracing Diversity in UX: How to Design Accessibly<span class="visually-hidden"> (opens on Medium in a new tab)</span></span>
+              <span class="pg-post__meta">UW/UX · Read on Medium <span aria-hidden="true">↗</span></span>
+            </a>
+          </li>
+          <li>
+            <a class="pg-post" href="https://uwux.medium.com/how-figma-applies-nielsens-10-usability-heuristics-30cf376cb727" target="_blank" rel="noopener noreferrer">
+              <img src="assets/playground/uwux-figma-heuristics.jpg" alt="" width="1000" height="523" loading="lazy">
+              <span class="pg-post__title">How Figma Applies Nielsen’s 10 Usability Heuristics<span class="visually-hidden"> (opens on Medium in a new tab)</span></span>
+              <span class="pg-post__meta">UW/UX · Read on Medium <span aria-hidden="true">↗</span></span>
+            </a>
+          </li>
+        </ul>
       </section>
     </main>
   </div>
@@ -125,7 +179,7 @@
   <script src="js/main.js?v=13"></script>
   <script src="js/sky.js?v=9"></script>
   <script src="js/ascii-twinkle.js"></script>
-  <script src="js/reveal.js?v=6"></script>
+  <script src="js/reveal.js?v=7"></script>
   <script src="js/nebula.js?v=9"></script>
 </body>
 </html>

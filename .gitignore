@@ -15,3 +15,8 @@ assets/case-studies/techno-ring/
 
 # Remo case study scaffold: local only until it is ready to publish
 remo.html
+
+# Local exploration pages (not published)
+lab-*.html
+js/lab-*.js
+css/lab-*.css

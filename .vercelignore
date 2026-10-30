@@ -22,3 +22,7 @@ assets/case-studies/flento/*.png
 
 # Remo case study: scaffolded, not linked or published yet (the home card links to the Figma deck)
 remo.html
+
+lab-*.html
+js/lab-*.js
+css/lab-*.css
