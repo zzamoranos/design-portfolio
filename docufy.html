@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&display=swap">
   <link rel="stylesheet" href="css/styles.css?v=44">
-  <link rel="stylesheet" href="css/case-study.css?v=29">
+  <link rel="stylesheet" href="css/case-study.css?v=31">
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -54,6 +54,7 @@
             <li><a class="nav-link" href="#system">Design System</a></li>
             <li><a class="nav-link" href="#problem">Problem</a></li>
             <li><a class="nav-link" href="#designs">Exploring Solutions</a></li>
+            <li><a class="nav-link" href="#outcome">Outcome</a></li>
             <li><a class="nav-link" href="#takeaways">Takeaways</a></li>
           </ul>
         </div>
@@ -96,7 +97,7 @@
         <!-- Project details: one item per line, as in the Figma -->
         <dl class="case__details" aria-label="Project details">
           <div><dt>Timeline</dt><dd>May – Aug 2025</dd><dd>12 weeks</dd></div>
-          <div><dt>Team</dt><dd>CXOs</dd><dd>Design Advisor</dd><dd>AI Product Designer</dd><dd>Product Manager</dd><dd>Engineers</dd><dd>Research</dd></div>
+          <div><dt>Team</dt><dd>CXOs</dd><dd>Design Advisor</dd><dd>AI Product Designer</dd><dd>Contract Designer (concept phase)</dd><dd>Product Manager</dd><dd>Engineers</dd><dd>Research</dd></div>
           <div><dt>Tools</dt><dd>Figma</dd><dd>FigJam</dd></div>
           <div><dt>Disciplines</dt><dd>Product Design</dd><dd>Design Systems</dd><dd>Visual Design</dd><dd>UX Strategy</dd><dd>Human Interface Guidelines</dd></div>
         </dl>
@@ -105,7 +106,7 @@
         <section class="case__section" id="tldr" aria-labelledby="tldr-title">
           <p class="case__eyebrow">The TL;DR</p>
           <h2 class="case__headline" id="tldr-title">Defining an AI product from 0 → 1</h2>
-          <p>Over summer 2025, I worked with Karbon Digital on <strong>Docufy</strong>, an AI document assistant. As its product designer, I helped define the product from 0 → 1: the interaction model, and a design system that made automation feel human, interpretable and dependable. That system became the foundation for every Karbon Digital product after it.</p>
+          <p>Over summer 2025, I worked with Karbon Digital on <strong>Docufy</strong>, an AI document assistant. As its product designer, I helped define the product from 0 → 1: the interaction model, and a design system that made automation feel human, interpretable and dependable. That system became the foundation for Karbon Digital’s future products.</p>
         </section>
 
         <!-- Background -->
@@ -113,18 +114,18 @@
           <p class="case__eyebrow">Background</p>
           <h2 class="case__headline" id="background-title">Bridging the gap between information and understanding</h2>
           <p>Across industries, teams work through thousands of documents and still struggle to find answers quickly and confidently. Plenty of AI tools can summarize and extract data. Few make it useful.</p>
-          <p>I joined when Docufy was at its earliest stage. My role was to shape the product experience from the ground up: deciding how the AI would explain its reasoning, building trust through design, and creating a system that made automation feel explainable and human.</p>
+          <p>I joined as the sole in-house designer while Docufy was still a concept. My role was to shape the product experience from the ground up: deciding how the AI would explain its reasoning, building trust through design, and creating a system that made automation feel explainable and human.</p>
         </section>
 
         <!-- Process -->
         <section class="case__section" id="process" aria-labelledby="process-title">
           <p class="case__eyebrow">Process</p>
-          <h2 class="case__headline" id="process-title">Lean, because we were building from zero</h2>
+          <h2 class="case__headline" id="process-title">A lean, iterative process to ship the MVP</h2>
           <p>I broadly followed the <strong>double diamond</strong>, steered by metrics, user motivations and company goals. Building 0 → 1 meant moving quickly through early stages to test ideas in real contexts, then circling back to refine flows, fix bugs and fold in feedback from internal testing. That rhythm let me ship fast, learn continuously, and improve Docufy with every release.</p>
           <ol class="dc-phases" aria-label="Project phases">
             <li class="dc-phase">
               <h3 class="dc-phase__title">01. Discovery</h3>
-              <ul><li>Product discussions</li><li>Problem framing</li><li>User personas</li><li>Market gap analysis</li></ul>
+              <ul><li>Wireframe and style audit</li><li>Product discussions</li><li>Problem framing</li><li>User personas</li><li>Market gap analysis</li></ul>
             </li>
             <li class="dc-phase">
               <h3 class="dc-phase__title">02. Define</h3>
@@ -132,7 +133,7 @@
             </li>
             <li class="dc-phase">
               <h3 class="dc-phase__title">03. Design</h3>
-              <ul><li>User flows</li><li>Wireframing (low → mid fidelity)</li><li>Iteration</li><li>Prototyping</li></ul>
+              <ul><li>User flows</li><li>Low to mid-fi wireframes</li><li>Iteration</li><li>Prototyping</li></ul>
             </li>
             <li class="dc-phase">
               <h3 class="dc-phase__title">04. Develop</h3>
@@ -145,14 +146,15 @@
         <!-- Design system -->
         <section class="case__section" id="system" aria-labelledby="system-title">
           <p class="case__eyebrow">Building the design system</p>
-          <h2 class="case__headline dc-statement" id="system-title">I joined Docufy with a grand total of <span class="dc-statement__zero">zero</span> design files to build from.</h2>
-          <p>There were no existing files or systems, so I was responsible for setting up the foundation of our future <strong>Figma</strong> home.</p>
-          <p>I started by turning hex codes and token names into <strong>colour styles</strong>, adjusting saturation and brightness to improve readability and meet WCAG contrast standards. Following Google’s <strong>Material Design</strong> guidelines, I swapped pure black (#000000) for the recommended #121212 to reduce eye strain.</p>
+          <h2 class="case__headline dc-statement" id="system-title">Turning a style guide and concept wireframes into a design system</h2>
+          <p>Before I joined, a contract designer had created a few concept wireframes and a style guide to explore the idea. In my first few days, I audited both to see what could carry forward. One finding: some of the style guide’s primary accent colours didn’t pass accessibility guidelines. I suggested changes, but they weren’t made within the MVP. I kept what worked and set up the foundation of our <strong>Figma</strong> home from there.</p>
+          <p>I started by turning the style guide’s hex codes and token names into <strong>colour styles</strong>, adjusting saturation and brightness to improve readability and move toward WCAG contrast standards. Following Google’s <strong>Material Design</strong> guidelines, I swapped pure black (#000000) for the recommended #121212 to reduce eye strain.</p>
           <p class="dc-note">I consolidated our icon set on Google’s <strong>Material Icons</strong>, which were the easiest to read and tested well for legibility.</p>
 
           <h3 class="case__h3"><span class="case__step">01</span> Text styles</h3>
           <p>Next, type: I tightened letter-spacing on titles and loosened it on paragraphs, for legibility and polish. We’d used the iOS and Android default fonts, but the product looked inconsistent between platforms.</p>
           <p>During mobile development, I switched Android to Inter for its closeness to SF Pro, and researched a few new typefaces. In the end, the default + Inter combination met our criteria best: it loaded faster, cost nothing, and held up in text-heavy UI.</p>
+          <p class="dc-note"><strong>Decision:</strong> keep the platform defaults and pair them with Inter, instead of adopting a new typeface. <strong>Trade-off:</strong> less brand personality, in exchange for faster loading and no cost.</p>
           <figure class="case__figure dc-shot">
             <img src="assets/case-studies/docufy/design-system.png" alt="Docufy’s design system in Figma: colour palettes for primary, neutral, error, warning and success, beside type specimens for display, headings, subheadings and body" width="1313" height="543" loading="lazy">
             <figcaption>The foundations: colour styles and the type scale.</figcaption>
@@ -182,13 +184,13 @@
             </div>
           </div>
 
-          <div class="dc-challenge">
-            <p class="dc-challenge__label">Design challenge</p>
-            <p class="dc-challenge__q"><strong>How might we</strong> help professionals turn complex documents into clear, <em>trustworthy</em> and <em>actionable</em> insights through contextual intelligence?</p>
+          <div class="cs-hmw">
+            <p class="cs-hmw__label">How might we…</p>
+            <p class="cs-hmw__q">Help professionals turn complex documents into clear, trustworthy and actionable insights through contextual intelligence?</p>
           </div>
 
           <h3 class="case__h3"><span class="case__step">01</span> People struggle to work efficiently in fragmented systems</h3>
-          <p>Users jump between storage platforms, search tools and AI assistants that summarize text but ignore the context that gives it meaning. The result is redundancy, cognitive strain and low trust. These are the patterns we found in how professionals work with documents today:</p>
+          <p>Users jump between storage platforms, search tools and AI assistants that summarize text but ignore the context that gives it meaning. The result is redundancy, cognitive strain and low trust. These patterns came out of product discussions, personas and a market gap analysis:</p>
           <ol class="case__cards case__cards--two">
             <li>
               <p class="case__card-label">Insight 01</p>
@@ -211,10 +213,10 @@
               <p>Information is scattered across formats and tools. People spend more time managing documents than understanding them, which leads to fatigue and slower decisions.</p>
             </li>
           </ol>
-          <p>Without reliable organization or traceable reasoning, users spend more time confirming information than using it. Enterprise workflows don’t just need faster tools. They need smarter alignment between automation and human reasoning.</p>
-          <div class="case__callout">
-            <p class="case__eyebrow">The design goal</p>
-            <p>An intelligent document assistant that turns complex workflows into clear, actionable experiences, where AI doesn’t replace understanding, but scales it.</p>
+          <p>Without reliable organization or traceable reasoning, users spend more time confirming information than using it. Enterprise teams need speed and traceable reasoning from the same tool.</p>
+          <div class="cs-hmw">
+            <p class="cs-hmw__label">The design goal</p>
+            <p class="cs-hmw__q">An intelligent document assistant that turns complex workflows into clear, actionable experiences and scales people’s understanding.</p>
           </div>
         </section>
 
@@ -240,7 +242,8 @@
             </picture>
           </figure>
 
-          <h3 class="case__h3"><span class="case__step">02</span> Landing screen: designing for immediate action</h3>
+          <h3 class="case__h3"><span class="case__step">02</span> Landing screen: prioritizing primary actions</h3>
+          <p class="case__addresses">Addresses Insights 02 and 04</p>
           <p>Docufy’s users were professionals going through big piles of documents at their desks, so the MVP started on desktop. The goal was to get someone from a file to a first answer reliably in a couple of clicks.</p>
           <p>To decide what earned a spot on the first screen, I looked at how other existing tools in the market help get people started. I kept three primary actions up front: Upload, Model selection, and Industry context.</p>
           <figure class="case__figure dc-shot">
@@ -281,6 +284,7 @@
           </figure>
 
           <h3 class="case__h3"><span class="case__step">05</span> Uploading a new file</h3>
+          <p class="case__addresses">Addresses Insights 01 and 04</p>
           <p>Workspaces are Docufy’s foundation. They organize documents, models and chats the way people actually work: by project, not by file. Each one keeps track of which models are linked, which conversations happened and what insights came out of them, so context carries over as a project grows.</p>
           <figure class="case__figure dc-shot">
             <img src="assets/case-studies/docufy/upload.png" alt="Upload modal: choose a source, drag and drop a file, and an uploads panel showing a completed file" width="1280" height="733" loading="lazy">
@@ -288,6 +292,7 @@
           </figure>
 
           <h3 class="case__h3"><span class="case__step">06</span> Marketplace</h3>
+          <p class="case__addresses">Addresses Insight 04</p>
           <p>Instead of exporting summaries into other systems, teams connect Docufy to the tools they already use, like Salesforce, HubSpot and OpenText, and act on insights right there.</p>
           <figure class="case__figure dc-shot">
             <img src="assets/case-studies/docufy/marketplace.png" alt="Marketplace page listing integrations: HubSpot, Salesforce, Zoho, Pega, Appian, ServiceNow, Clio, IBM and OpenText" width="1280" height="800" loading="lazy">
@@ -295,34 +300,54 @@
           <p class="dc-note">The Marketplace turns Docufy from a single product into an adaptable ecosystem, connecting AI insights with the workflows and tools teams already rely on.</p>
         </section>
 
+        <!-- Outcome -->
+        <section class="case__section" id="outcome" aria-labelledby="outcome-title">
+          <p class="case__eyebrow">Outcome</p>
+          <h2 class="case__headline" id="outcome-title">The MVP launched, and the design system became the team’s foundation</h2>
+          <ol class="case__cards">
+            <li>
+              <p class="case__card-label">MVP</p>
+              <h3 class="case__card-title">Launched in 12 weeks</h3>
+              <p>Docufy’s MVP launched, with web and mobile flows designed in parallel.</p>
+            </li>
+            <li>
+              <p class="case__card-label">Design system</p>
+              <h3 class="case__card-title">Built to be reused</h3>
+              <p>The system became the foundation for Karbon Digital’s future products.</p>
+            </li>
+            <li>
+              <p class="case__card-label">Roadmap</p>
+              <h3 class="case__card-title">A plan for what came next</h3>
+              <p>I wrote a v2.0 product roadmap to guide the work after the MVP.</p>
+            </li>
+          </ol>
+        </section>
+
         <!-- Takeaways -->
         <section class="case__section" id="takeaways" aria-labelledby="takeaways-title">
           <p class="case__eyebrow">Takeaways</p>
-          <h2 class="case__headline" id="takeaways-title">What designing from zero taught me</h2>
+          <h2 class="case__headline" id="takeaways-title">Key learnings from designing a 0 → 1 product</h2>
           <ul class="dc-takeaways">
             <li class="dc-takeaway">
               <span class="dc-takeaway__emoji" aria-hidden="true">🧠</span>
               <h3 class="dc-takeaway__title">Ownership means being decisive</h3>
-              <p><strong>Designing from zero took conviction.</strong> Ownership meant setting direction and making design calls even when the information was incomplete. The team and my mentor pushed me to lead the product, which grew my product mindset throughout the co-op.</p>
-              <p>Priorities, timelines and engineering constraints kept changing. I learned to decide with confidence amid ambiguity, explain trade-offs clearly, and trust my judgment.</p>
+              <p><strong>With no finished system to lean on, I had to set direction before I had all the answers.</strong> Priorities, timelines and engineering constraints kept changing. I learned to decide with confidence, explain the trade-offs, and trust my judgment.</p>
             </li>
             <li class="dc-takeaway">
               <span class="dc-takeaway__emoji" aria-hidden="true">👩‍💻</span>
               <h3 class="dc-takeaway__title">Designing ahead to build the MVP</h3>
-              <p>Working toward an MVP meant designing for speed and direction at once. Engineering needed the web prototype ready while mobile progressed in parallel, so I learned to design ahead: web foundation first, with future scale in mind.</p>
-              <p>Every decision balanced short-term feasibility with long-term flexibility. Components were simplified when timelines were tight and expanded when they served the product’s direction. <strong>Designing ahead meant building structure early</strong>, so the team could move quickly without losing alignment.</p>
+              <p>Engineering needed the web prototype ready while mobile progressed in parallel, so I designed ahead: web foundation first, with future scale in mind. Components stayed simple when timelines were tight and expanded when they served the product’s direction.</p>
+              <p><strong>Building structure early let the team move quickly without losing alignment.</strong></p>
             </li>
             <li class="dc-takeaway">
               <span class="dc-takeaway__emoji" aria-hidden="true">🚢</span>
               <h3 class="dc-takeaway__title">Prioritization shapes product vision</h3>
-              <p>Setting a vision is hard. It means forming hypotheses, defining the undefined, and convincing stakeholders a direction is worth exploring. <strong>Not everything can ship at once, and not every idea deserves polish.</strong> I learned to scope tightly, define clear personas and prioritize ruthlessly.</p>
-              <p>Each decision clarified what mattered most for the MVP, and showed me that <strong>focus creates stronger outcomes than breadth</strong>. I learned to step back and think about how a vision fits into the UX of the whole platform.</p>
+              <p><strong>Not everything can ship at once, and not every idea deserves polish.</strong> I learned to scope tightly, define clear personas and prioritize ruthlessly. Each decision clarified what mattered most for the MVP, and focus produced stronger results than breadth.</p>
             </li>
             <li class="dc-takeaway">
               <span class="dc-takeaway__emoji" aria-hidden="true">✨</span>
               <h3 class="dc-takeaway__title">Advocating for design</h3>
-              <p>Working within MVP constraints taught me <strong>how to advocate for design in a fast-moving environment</strong>. Pushback is part of the process, especially when timelines are tight. What helps is showing how design decisions drive product outcomes, not surface polish.</p>
-              <p><strong>Confidence in your process means you can trust your decisions when pushback comes.</strong> Criticism is a chance to sharpen reasoning, communicate trade-offs and connect user value to business goals. Good design leadership makes the case for user-driven decisions in a way that moves the whole product forward.</p>
+              <p><strong>When timelines tightened, design got pushback.</strong> What helped was connecting each decision to user value and business goals. Criticism became a chance to sharpen my reasoning and communicate trade-offs.</p>
             </li>
           </ul>
         </section>
@@ -371,7 +396,7 @@
   </footer>
 
   <script src="js/config.js?v=14"></script>
-  <script src="js/main.js?v=13"></script>
+  <script src="js/main.js?v=14"></script>
   <script src="js/sky.js?v=9"></script>
   <script src="js/ascii-twinkle.js"></script>
   <script src="js/reveal.js?v=7"></script>

@@ -322,15 +322,6 @@
 .dc-split__text { display: flex; flex-direction: column; gap: 12px; }
 .dc-split__title { margin: 0; }
 
-/* Design challenge: the dark band from Figma (#161A20), kept dark in both themes */
-.dc-challenge { display: flex; flex-direction: column; gap: 12px; padding: 32px 36px; border-radius: var(--radius-card); background: #161a20; }
-.dc-challenge__label {
-  font-weight: 600; font-size: 11px !important; line-height: 14px !important; letter-spacing: .08em; text-transform: uppercase;
-  color: #a8b5fd !important;
-}
-.dc-challenge__q { font-size: 24px !important; line-height: 32px !important; letter-spacing: -0.2px; color: #fbfbfd !important; }
-.dc-challenge__q strong { font-weight: 600; color: #fff; }
-:root[data-theme="dark"] .dc-challenge { box-shadow: inset 0 0 0 1px rgba(226, 234, 255, .1); }
 
 /* NDA note gets a link */
 .dc-nda { margin-top: 0; }
@@ -374,8 +365,6 @@
   .dc-components { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .dc-components__upload { grid-column: 1 / -1; }
   .dc-pair__row, .dc-takeaways { grid-template-columns: 1fr !important; }
-  .dc-challenge { padding: 24px 20px; }
-  .dc-challenge__q { font-size: 20px !important; line-height: 28px !important; }
   .dc-pull { font-size: 24px !important; line-height: 30px !important; }
 }
 
@@ -402,7 +391,7 @@
 /* Rhythm: 16px between items in a section, 32px before each numbered sub-heading or side-by-side row,
    64px between sections (40px gap + 24px padding). Banners and media span the full column. */
 .case__section .case__h3 { margin-top: 32px; }
-.case__section > .case__callout, .case__section > .dc-note, .case__section > .case__note, .case__section > .dc-challenge { max-width: none; }
+.case__section > .case__callout, .case__section > .dc-note, .case__section > .case__note { max-width: none; }
 .case__note.dc-banner { margin-top: 0; padding: 16px 20px; font-size: 16px; line-height: 26px; color: var(--text-muted-em); } /* same text size as the other banners */
 /* …except headings that open a side-by-side block */
 .case__section .dc-split__title, .case__section .dc-mobile__text .case__h3,
@@ -517,7 +506,7 @@
 /* How might we: accent banner */
 .cs-hmw { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 36px 12%; border-radius: var(--radius-card); background: #536dff; text-align: center; }
 .cs-hmw__label { font-weight: 500; font-size: 13px !important; line-height: 18px !important; letter-spacing: .06em; text-transform: uppercase; color: #fefefe !important; }
-.cs-hmw__q { font-family: var(--font-display); font-size: 24px !important; line-height: 32px !important; letter-spacing: 0 !important; color: #fefefe !important; }
+.cs-hmw__q { font-family: var(--font-display); font-size: 24px !important; line-height: 32px !important; letter-spacing: 0 !important; color: #fefefe !important; text-wrap: balance; }
 :root[data-theme="dark"] .cs-hmw { background: #4257d6; }
 
 /* Final design showcase */

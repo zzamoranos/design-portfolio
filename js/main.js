@@ -168,12 +168,8 @@
   if (toc) {
     var tocLinks = Array.prototype.slice.call(toc.querySelectorAll('a[href^="#"]'));
     var tocTargets = tocLinks.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
-    var current = -1;
-    var syncToc = function () {
-      var line = window.innerHeight * 0.33, idx = 0;
-      tocTargets.forEach(function (el, i) { if (el && el.getBoundingClientRect().top <= line) idx = i; });
-      // at the very bottom, the last section counts as reached even if it's short
-      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) idx = tocTargets.length - 1;
+    var current = -1, lockUntil = 0;
+    var mark = function (idx) {
       if (idx === current) return;
       current = idx;
       tocLinks.forEach(function (a, i) {
@@ -181,6 +177,18 @@
         if (i === idx) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
       });
     };
+    var syncToc = function () {
+      if (Date.now() < lockUntil) return;          // a click just started a jump: keep the clicked item active until it lands
+      var line = window.innerHeight * 0.33, idx = 0;
+      tocTargets.forEach(function (el, i) { if (el && el.getBoundingClientRect().top <= line) idx = i; });
+      // at the very bottom, the last section counts as reached even if it's short
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) idx = tocTargets.length - 1;
+      mark(idx);
+    };
+    // a short section (like TL;DR) can sit above the next one on tall screens: honour the click, not the scroll position
+    tocLinks.forEach(function (a, i) {
+      a.addEventListener('click', function () { lockUntil = Date.now() + 1100; mark(i); });
+    });
     window.addEventListener('scroll', syncToc, { passive: true });
     window.addEventListener('resize', syncToc);
     syncToc();

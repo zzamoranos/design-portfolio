@@ -20,3 +20,6 @@ remo.html
 lab-*.html
 js/lab-*.js
 css/lab-*.css
+
+# Local backups of pages before edits
+_archive/*-before-*.html
