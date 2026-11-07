@@ -213,6 +213,7 @@
               <p>Information is scattered across formats and tools. People spend more time managing documents than understanding them, which leads to fatigue and slower decisions.</p>
             </li>
           </ol>
+          <p><strong>Risk:</strong> in regulated work, a wrong summary is more than an annoyance. A misread number or an oversimplified summary can turn into an audit or compliance risk. That set the bar for Docufy: accurate output, in the right industry context, with a link back to the source.</p>
           <p>Without reliable organization or traceable reasoning, users spend more time confirming information than using it. Enterprise teams need speed and traceable reasoning from the same tool.</p>
           <div class="cs-hmw">
             <p class="cs-hmw__label">The design goal</p>
@@ -243,13 +244,19 @@
           </figure>
 
           <h3 class="case__h3"><span class="case__step">02</span> Landing screen: prioritizing primary actions</h3>
-          <p class="case__addresses">Addresses Insights 02 and 04</p>
           <p>Docufy’s users were professionals going through big piles of documents at their desks, so the MVP started on desktop. The goal was to get someone from a file to a first answer reliably in a couple of clicks.</p>
           <p>To decide what earned a spot on the first screen, I looked at how other existing tools in the market help get people started. I kept three primary actions up front: Upload, Model selection, and Industry context.</p>
           <figure class="case__figure dc-shot">
             <img src="assets/case-studies/docufy/landing.png" alt="Docufy’s landing screen: workspace sidebar on the left, Upload, Choose a model and Select industry along the top, and a chat field with quick actions in the centre" width="1280" height="733" loading="lazy">
             <figcaption>A three-part layout: navigation on the left, utility actions up top, and the workspace in the centre, so the chat and document view stay anchored while people scan.</figcaption>
           </figure>
+
+          <h3 class="case__h3"><span class="case__step">03</span> Cited summaries: every claim points to its source</h3>
+          <p>People kept double-checking the source, so the time AI saved went into verifying. I put the citations inside the summary itself. Each claim links to the passage it came from, so a reviewer checks an answer in place and doesn’t hunt through the document.</p>
+          <p class="dc-note"><strong>Considerations:</strong> citations had to be visible enough to build trust, and small enough that the summary still reads cleanly.</p>
+
+          <h3 class="case__h3"><span class="case__step">04</span> Risk-aware outputs: the details that carry risk come first</h3>
+          <p>In finance, insurance and legal work, the details that matter most are terms, pricing and values. Docufy pulls these out as fields and links each one to its source, so a reviewer can verify them quickly.</p>
 
           <div class="dc-mobile">
             <figure class="dc-mobile__phone">
@@ -259,7 +266,7 @@
               </picture>
             </figure>
             <div class="dc-mobile__text">
-              <h3 class="case__h3"><span class="case__step">03</span> Extending the system to mobile</h3>
+              <h3 class="case__h3"><span class="case__step">05</span> Extending the system to mobile</h3>
               <p>Once the desktop system stabilized, I re-examined every workflow for constraint and continuity: <strong>how could the same logic hold up when space, precision and attention all <em>shrink</em>?</strong></p>
               <p>I reworked the hierarchy for thumbs, prioritizing frequent actions like upload, search and starting a chat. I restructured the information architecture around contextual clarity, introduced responsive type scales for text-heavy screens, and sized touch targets to the 44px accessibility standard.</p>
               <p>Component logic stayed consistent across platforms through shared design tokens.</p>
@@ -271,7 +278,7 @@
               <img src="assets/case-studies/docufy/sidebar.png" alt="Docufy’s sidebar: search, workspace switcher, a folder of files, Settings and Upgrade Plan" width="340" height="876" loading="lazy">
             </figure>
             <div class="dc-mobile__text">
-              <h3 class="case__h3"><span class="case__step">04</span> Workspace management</h3>
+              <h3 class="case__h3"><span class="case__step">06</span> Workspace management</h3>
               <p>I approached workspaces as an information architecture problem: structure the layout so hierarchy feels intuitive and moving around feels effortless.</p>
             </div>
           </div>
@@ -283,16 +290,14 @@
             <figcaption>Creating and deleting workspaces. Deleting asks for the workspace’s name, so it can’t happen by accident.</figcaption>
           </figure>
 
-          <h3 class="case__h3"><span class="case__step">05</span> Uploading a new file</h3>
-          <p class="case__addresses">Addresses Insights 01 and 04</p>
+          <h3 class="case__h3"><span class="case__step">07</span> Uploading a new file</h3>
           <p>Workspaces are Docufy’s foundation. They organize documents, models and chats the way people actually work: by project, not by file. Each one keeps track of which models are linked, which conversations happened and what insights came out of them, so context carries over as a project grows.</p>
           <figure class="case__figure dc-shot">
             <img src="assets/case-studies/docufy/upload.png" alt="Upload modal: choose a source, drag and drop a file, and an uploads panel showing a completed file" width="1280" height="733" loading="lazy">
             <figcaption>Some content in these designs has been replaced with placeholder text for confidentiality.</figcaption>
           </figure>
 
-          <h3 class="case__h3"><span class="case__step">06</span> Marketplace</h3>
-          <p class="case__addresses">Addresses Insight 04</p>
+          <h3 class="case__h3"><span class="case__step">08</span> Marketplace</h3>
           <p>Instead of exporting summaries into other systems, teams connect Docufy to the tools they already use, like Salesforce, HubSpot and OpenText, and act on insights right there.</p>
           <figure class="case__figure dc-shot">
             <img src="assets/case-studies/docufy/marketplace.png" alt="Marketplace page listing integrations: HubSpot, Salesforce, Zoho, Pega, Appian, ServiceNow, Clio, IBM and OpenText" width="1280" height="800" loading="lazy">
