@@ -31,6 +31,21 @@
 .pg-item:hover .pg-tile img { transform: scale(1.04); }
 .pg-gallery:has(.pg-item:hover) .pg-item:not(:hover) { opacity: .5; }
 
+/* Motion design: one looping clip, shown at its native size so the UI text stays sharp */
+.pg-motion { margin: 0; display: flex; flex-direction: column; gap: 10px; max-width: 880px; }
+.pg-motion img {
+  display: block; width: 100%; height: auto; border-radius: var(--radius-card);
+  box-shadow: 0 0 0 1px rgba(17, 24, 39, .05), 0 3px 12px rgba(17, 24, 39, .04);
+  transition: box-shadow .35s cubic-bezier(.2, .8, .2, 1), transform .35s cubic-bezier(.2, .8, .2, 1);
+}
+/* Hover: the clip lifts a touch and its shadow deepens slightly */
+.pg-motion img:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px rgba(17, 24, 39, .05), 0 10px 26px rgba(17, 24, 39, .09);
+}
+:root[data-theme="dark"] .pg-motion img { box-shadow: 0 0 0 1px rgba(226, 234, 255, .1); }
+:root[data-theme="dark"] .pg-motion img:hover { box-shadow: 0 0 0 1px rgba(226, 234, 255, .14), 0 10px 26px rgba(0, 0, 0, .35); }
+
 /* Written pieces: thumbnail, title, source */
 .pg-posts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
 .pg-post { display: flex; flex-direction: column; gap: 8px; }
@@ -42,7 +57,7 @@
 :root[data-theme="dark"] .pg-post img { box-shadow: 0 0 0 1px rgba(226, 234, 255, .1); }
 
 @media (prefers-reduced-motion: reduce) {
-  .pg-item:hover .pg-tile img, .pg-post:hover img { transform: none; }
+  .pg-item:hover .pg-tile img, .pg-post:hover img, .pg-motion img:hover { transform: none; }
 }
 @media (hover: none) { .pg-gallery:has(.pg-item:hover) .pg-item:not(:hover) { opacity: 1; } }
 
