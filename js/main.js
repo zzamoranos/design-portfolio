@@ -219,6 +219,9 @@
   // Click: a different sound on links, buttons and cards. On by default; a small button beside the theme
   // toggle turns it off, and the choice is remembered on this device (localStorage only, nothing is sent).
   (function () {
+    // Desktop only: skip everything (sounds, toggle, preloading, the click delay) unless the main input is a mouse or trackpad.
+    // Phones and tablets are touch-first, so they never hear, load or see any of it.
+    if (!(window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches)) return;
     var isCase = !!document.querySelector('[data-toc]');   // case studies: sidebar is a table of contents; click sound on it only, no hover
     var KEY = 'sound', SRC = { hover: '/assets/sfx/hover.m4a', click: '/assets/sfx/click.m4a' };
     var VOL = { hover: 0.22, click: 0.07 };   // per-sound playback volume (0 to 1)
@@ -270,7 +273,6 @@
 
     // Hover: one blip as the pointer enters a link, button or card. Mouse/trackpad only (touch screens have no hover),
     // and a short gap between blips so sweeping across a row of links doesn't stutter.
-    var canHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     var lastAt = 0;
     // After clicking a nav link the next page loads with the pointer still on that link, which would fire the hover
     // blip again. The click leaves a short-lived note in sessionStorage so the new page can skip that one hover.
@@ -280,7 +282,7 @@
       sessionStorage.removeItem('sfx-nav');
       if (note && Date.now() - note.t < 3000) skip = note;
     } catch (e) { /* ignore */ }
-    if (canHover && !isCase) document.addEventListener('mouseover', function (e) {
+    if (!isCase) document.addEventListener('mouseover', function (e) {
       var t = e.target.closest ? e.target.closest(NAV) : null;
       if (!t || t.matches(SKIP)) return;
       if (e.relatedTarget && t.contains(e.relatedTarget)) return;   // moving between the icon and text of one link
