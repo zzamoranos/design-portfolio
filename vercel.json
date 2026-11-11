@@ -24,7 +24,7 @@
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, must-revalidate" }]
     },
     {
-      "source": "/assets/(.*)\\.(jpg|png|gif|svg|webp)",
+      "source": "/assets/(.*)\\.(jpg|png|gif|svg|webp|mp3|m4a|mp4)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }]
     }
   ]

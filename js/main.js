@@ -72,6 +72,19 @@
     });
   }
 
+  /* ---------- Cover loops (Remo): play only while on screen; reduced motion keeps the still poster ---------- */
+  var coverLoops = document.querySelectorAll('video[data-cover-loop]');
+  if (coverLoops.length && 'IntersectionObserver' in window && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+    var coverIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !document.hidden) entry.target.play().catch(function () {});
+        else entry.target.pause();
+      });
+    }, { threshold: 0.25 });
+    coverLoops.forEach(function (v) { coverIO.observe(v); });
+    document.addEventListener('visibilitychange', function () { if (document.hidden) coverLoops.forEach(function (v) { v.pause(); }); });
+  }
+
   /* ---------- Live clock ---------- */
   var clockEl = document.querySelector('[data-clock]');
   if (clockEl && window.Intl) {
@@ -200,6 +213,103 @@
       history.replaceState(null, '', location.pathname);
     });
   });
+
+  /* ---------- Sounds ---------- */
+  // Hover: a short blip when the pointer moves onto a sidebar text link (Home, Case Studies, Playground, About Me, LinkedIn, Resume, Email).
+  // Click: a different sound on links, buttons and cards. On by default; a small button beside the theme
+  // toggle turns it off, and the choice is remembered on this device (localStorage only, nothing is sent).
+  (function () {
+    var isCase = !!document.querySelector('[data-toc]');   // case studies: sidebar is a table of contents; click sound on it only, no hover
+    var KEY = 'sound', SRC = { hover: '/assets/sfx/hover.m4a', click: '/assets/sfx/click.m4a' };
+    var VOL = { hover: 0.22, click: 0.07 };   // per-sound playback volume (0 to 1)
+    var CLICKABLE = 'a[href], button, [role="button"], summary, .card';
+    var NAV = '.nav-link, .social-link';   // the sidebar's text links only
+    var SKIP = '[aria-disabled="true"], [disabled], [data-no-sound]';
+    var on = true, audio = {};
+    try { on = localStorage.getItem(KEY) !== 'off'; } catch (e) { /* storage blocked: stay on for this visit */ }
+
+    function load(kind) {
+      if (!audio[kind]) { try { audio[kind] = new Audio(SRC[kind]); audio[kind].preload = 'auto'; audio[kind].volume = VOL[kind]; } catch (e) { audio[kind] = null; } }
+      return audio[kind];
+    }
+    function play(kind) {
+      if (!on) return;
+      var a = load(kind);
+      if (!a) return;
+      try { a.currentTime = 0; var p = a.play(); if (p && p.catch) p.catch(function () { /* blocked until the first tap: ignore */ }); } catch (e) { /* ignore */ }
+    }
+    if (on) { load('hover'); load('click'); }
+
+    // the on/off button joins the theme toggle's row
+    var group = document.querySelector('.theme-toggle');
+    if (group) {
+      var NS = 'http://www.w3.org/2000/svg';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'theme-toggle__btn theme-toggle__btn--sound';
+      btn.setAttribute('aria-label', 'Click sounds');
+      btn.setAttribute('aria-pressed', String(on));
+      var svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('width', '16'); svg.setAttribute('height', '16'); svg.setAttribute('viewBox', '0 0 24 24'); svg.setAttribute('aria-hidden', 'true');
+      [['', 'M4 9v6h4l5 4V5L8 9H4z'], ['sfx-on', 'M16.5 9a4.5 4.5 0 0 1 0 6M19 6.5a8 8 0 0 1 0 11'], ['sfx-off', 'M16.5 9.5l5 5M21.5 9.5l-5 5']].forEach(function (d) {
+        var path = document.createElementNS(NS, 'path');
+        if (d[0]) path.setAttribute('class', d[0]);
+        path.setAttribute('d', d[1]);
+        svg.appendChild(path);
+      });
+      btn.appendChild(svg);
+      btn.addEventListener('click', function () {
+        on = !on;
+        btn.setAttribute('aria-pressed', String(on));
+        try { localStorage.setItem(KEY, on ? 'on' : 'off'); } catch (e) { /* ignore */ }
+        if (on) { load('hover'); load('click'); play('click'); }   // a blip as confirmation when turned on
+      });
+      group.setAttribute('aria-label', 'Display and sound');
+      group.appendChild(btn);
+    }
+
+    // Hover: one blip as the pointer enters a link, button or card. Mouse/trackpad only (touch screens have no hover),
+    // and a short gap between blips so sweeping across a row of links doesn't stutter.
+    var canHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var lastAt = 0;
+    // After clicking a nav link the next page loads with the pointer still on that link, which would fire the hover
+    // blip again. The click leaves a short-lived note in sessionStorage so the new page can skip that one hover.
+    var skip = null;
+    try {
+      var note = JSON.parse(sessionStorage.getItem('sfx-nav') || 'null');
+      sessionStorage.removeItem('sfx-nav');
+      if (note && Date.now() - note.t < 3000) skip = note;
+    } catch (e) { /* ignore */ }
+    if (canHover && !isCase) document.addEventListener('mouseover', function (e) {
+      var t = e.target.closest ? e.target.closest(NAV) : null;
+      if (!t || t.matches(SKIP)) return;
+      if (e.relatedTarget && t.contains(e.relatedTarget)) return;   // moving between the icon and text of one link
+      if (skip) {
+        var same = Date.now() - skip.t < 3000 && t.textContent.trim() === skip.label;
+        skip = null;
+        if (same) return;   // the link that was just clicked: stay quiet
+      }
+      var n = Date.now();
+      if (n - lastAt < 90) return;
+      lastAt = n; play('hover');
+    });
+  
+    // Click: bubbling phase, so the on/off button has already updated the state (turning sound off is silent)
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest ? e.target.closest(isCase ? NAV : CLICKABLE) : null;
+      if (!t || t.matches(SKIP) || t.matches('.theme-toggle__btn--sound')) return;
+      play('click');
+      // A link that loads another page would cut the sound off, so hold the navigation for a beat (plain left-clicks only).
+      var a = t.closest('a[href]');
+      if (on && a && !e.defaultPrevented && e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey &&
+          (!a.target || a.target === '_self') && !a.hasAttribute('download') && a.origin === location.origin &&
+          (a.pathname !== location.pathname || a.search !== location.search)) {
+        if (a.matches(NAV)) { try { sessionStorage.setItem('sfx-nav', JSON.stringify({ t: Date.now(), label: a.textContent.trim() })); } catch (err) { /* ignore */ } }
+        e.preventDefault();
+        setTimeout(function () { location.href = a.href; }, 160);
+      }
+    });
+  })();
 
   /* ---------- Year ---------- */
   var yearEl = document.querySelector('[data-year]');
