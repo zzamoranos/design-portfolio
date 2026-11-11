@@ -23,3 +23,7 @@ css/lab-*.css
 
 # Local backups of pages before edits
 _archive/*-before-*.html
+
+# Local-only folders and leftovers (never published)
+origins/
+_archive/

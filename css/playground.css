@@ -31,8 +31,8 @@
 .pg-item:hover .pg-tile img { transform: scale(1.04); }
 .pg-gallery:has(.pg-item:hover) .pg-item:not(:hover) { opacity: .5; }
 
-/* Motion design: one looping clip, shown at its native size so the UI text stays sharp */
-.pg-motion { margin: 0; display: flex; flex-direction: column; gap: 10px; max-width: 880px; }
+/* Personal projects: the looping clip spans the full column, edge to edge like the rows below it */
+.pg-motion { margin: 0; display: flex; flex-direction: column; gap: 10px; }
 .pg-motion img {
   display: block; width: 100%; height: auto; border-radius: var(--radius-card);
   box-shadow: 0 0 0 1px rgba(17, 24, 39, .05), 0 3px 12px rgba(17, 24, 39, .04);
