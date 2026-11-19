@@ -15,7 +15,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&display=swap">
   <link rel="stylesheet" href="css/styles.css?v=48">
-  <link rel="stylesheet" href="css/playground.css?v=7">
+  <link rel="stylesheet" href="css/playground.css?v=8">
+  <link rel="stylesheet" href="css/photobooth.css?v=25">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -91,15 +92,31 @@
       <section class="pg-section" aria-labelledby="projects-title">
         <div class="pg-head">
           <h2 class="section-title" id="projects-title">Personal projects</h2>
-          <p class="pg-sub">A Mac to-do extension for making mini lists with ease.</p>
+          <p class="pg-sub">Little tools and toys I’ve built for fun.</p>
         </div>
-        <figure class="pg-motion">
-          <picture>
-            <source srcset="assets/playground/mac-todo-menu-bar-still.jpg" media="(prefers-reduced-motion: reduce)">
-            <img src="assets/playground/mac-todo-menu-bar.gif" alt="A looping animation of a Mac menu bar to-do app. A cat icon in the menu bar opens a small panel, two tasks are typed in and checked off, then cleared, and a cat appears saying there is nothing to do." width="880" height="440" loading="lazy">
-          </picture>
-          <figcaption class="pg-cap">Built with SwiftUI, animated with Claude.</figcaption>
-        </figure>
+        <div class="pg-projects">
+          <figure class="pg-project">
+            <button class="pg-cover" type="button" data-lightbox data-title="Menu bar to-do" data-desc="A Mac menu bar add-on that’s always one click away, so you can jot down a quick to-do without opening an app or leaving what you’re doing. Built with SwiftUI, animated with Claude." aria-label="Expand: Menu bar to-do">
+              <picture>
+                <source srcset="assets/playground/mac-todo-menu-bar-still.jpg" media="(prefers-reduced-motion: reduce)">
+                <img src="assets/playground/mac-todo-menu-bar.gif" alt="A looping animation of a Mac menu bar to-do app. A cat icon in the menu bar opens a small panel, two tasks are typed in and checked off, then cleared, and a cat appears saying there is nothing to do." width="880" height="440" loading="lazy">
+              </picture>
+            </button>
+            <figcaption class="pg-project__cap">
+              <span class="pg-project__name">Menu bar to-do</span>
+              <span class="pg-project__desc">A Mac menu bar add-on for quick to-dos.</span>
+            </figcaption>
+          </figure>
+          <figure class="pg-project">
+            <a class="pg-cover pg-cover--booth" href="booth.html" data-booth="cover" data-booth-label="Visit the booth" aria-label="Photobooth: open the project">
+              <div class="booth-stage"><div class="booth-scene"><div class="booth"></div></div></div>
+            </a>
+            <figcaption class="pg-project__cap">
+              <span class="pg-project__name">Photobooth</span>
+              <span class="pg-project__desc">An interactive digital 3D photobooth.</span>
+            </figcaption>
+          </figure>
+        </div>
       </section>
 
       <section class="pg-section" aria-labelledby="art-title">
@@ -110,25 +127,25 @@
         <div class="pg-gallery">
           <div class="pg-row">
             <figure class="pg-item pg-a1">
-              <div class="pg-tile"><img src="assets/playground/island-blender.jpg" alt="A low-poly 3D floating island with a waterfall, large trees and a standing character, modelled in Blender" width="1126" height="659" loading="lazy"></div>
+              <button class="pg-tile" type="button" data-lightbox data-title="Conceptual Pokémon island" aria-label="Expand: Conceptual Pokémon island"><img src="assets/playground/island-blender.jpg" alt="A low-poly 3D floating island with a waterfall, large trees and a standing character, modelled in Blender" width="1126" height="659" loading="lazy"></button>
               <figcaption class="pg-cap"><span>01</span> Conceptual Pokémon island design, built in Blender</figcaption>
             </figure>
             <figure class="pg-item pg-a2">
-              <div class="pg-tile"><img src="assets/playground/digital-drawing.jpg" alt="A digital painting of a woman with long dark hair looking over her shoulder, in blue and violet tones with loose white line work" width="791" height="1400" loading="lazy"></div>
+              <button class="pg-tile" type="button" data-lightbox data-title="Digital drawing" aria-label="Expand: Digital drawing"><img src="assets/playground/digital-drawing.jpg" alt="A digital painting of a woman with long dark hair looking over her shoulder, in blue and violet tones with loose white line work" width="791" height="1400" loading="lazy"></button>
               <figcaption class="pg-cap"><span>02</span> Digital drawing</figcaption>
             </figure>
             <figure class="pg-item pg-a3">
-              <div class="pg-tile"><img src="assets/playground/pencil-sketch.jpg" alt="A pencil portrait of a woman with long hair, half her face drawn realistically and half as a mechanical eye and metal plating" width="808" height="1400" loading="lazy"></div>
+              <button class="pg-tile" type="button" data-lightbox data-title="Charcoal sketch" aria-label="Expand: Charcoal sketch"><img src="assets/playground/pencil-sketch.jpg" alt="A pencil portrait of a woman with long hair, half her face drawn realistically and half as a mechanical eye and metal plating" width="808" height="1400" loading="lazy"></button>
               <figcaption class="pg-cap"><span>03</span> Charcoal sketch</figcaption>
             </figure>
           </div>
           <div class="pg-row">
             <figure class="pg-item pg-a4">
-              <div class="pg-tile"><img src="assets/playground/capstone-blue.jpg" alt="A glowing blue illustration of two people looking at a pile of medical paperwork and pill bottles, with a signpost in the distance and the words “navigating healthcare without a map”" width="1600" height="900" loading="lazy"></div>
+              <button class="pg-tile" type="button" data-lightbox data-title="Capstone art piece" aria-label="Expand: Capstone art piece"><img src="assets/playground/capstone-blue.jpg" alt="A glowing blue illustration of two people looking at a pile of medical paperwork and pill bottles, with a signpost in the distance and the words “navigating healthcare without a map”" width="1600" height="900" loading="lazy"></button>
               <figcaption class="pg-cap"><span>04</span> Art piece for my capstone project</figcaption>
             </figure>
             <figure class="pg-item pg-a5">
-              <div class="pg-tile"><img src="assets/playground/personal-colour-analysis.jpg" alt="A graphic titled “Personal Colour Analysis” in pink and white lettering on a soft, textured purple background, with stars, a camera showing colour swatches and a palette, made in collaboration with L Beauty" width="1179" height="1172" loading="lazy"></div>
+              <button class="pg-tile" type="button" data-lightbox data-title="Graphic design" aria-label="Expand: Graphic design"><img src="assets/playground/personal-colour-analysis.jpg" alt="A graphic titled “Personal Colour Analysis” in pink and white lettering on a soft, textured purple background, with stars, a camera showing colour swatches and a palette, made in collaboration with L Beauty" width="1179" height="1172" loading="lazy"></button>
               <figcaption class="pg-cap"><span>05</span> Graphic design</figcaption>
             </figure>
           </div>
@@ -195,5 +212,7 @@
   <script src="js/ascii-twinkle.js"></script>
   <script src="js/reveal.js?v=7"></script>
   <script src="js/nebula.js?v=9"></script>
+  <script src="js/lightbox.js?v=2"></script>
+  <script src="js/booth3d.js?v=14"></script>
 </body>
 </html>

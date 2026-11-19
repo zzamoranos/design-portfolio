@@ -1,0 +1,187 @@
+/* ==========================================================================
+   Photobooth
+   The 3D booth: the Playground cover and the booth page (geometry + lighting set by js/booth3d.js)
+   Palette: retro cherry-red satin paint, oiled oak trim, cream lightbox with cherry lettering,
+   black velvet curtain, chrome base.
+   ========================================================================== */
+:root {
+  --pb-paint: #a3262c;          /* cherry red, satin */
+  --pb-paint-hi: #c8463f;
+  --pb-paint-lo: #6c171c;
+  --pb-navy: #26326b;
+  --pb-oak: #b47c46;
+  --pb-oak-hi: #d6a06a;
+  --pb-oak-lo: #7f532c;
+  --pb-cream: #f7f0e1;
+  --pb-accent: #8e1f27;         /* deep cherry for lettering on cream */
+  --pb-velvet: #26262d;         /* black velvet curtain */
+  --pb-velvet-lo: #111115;
+}
+
+/* ---------- Booth ---------- */
+.booth-link { display: block; position: relative; width: 100%; max-width: 600px; margin: 0 auto; padding: 0; border: 0; background: none; font: inherit; color: inherit; cursor: pointer; border-radius: 12px; }
+/* Print demo: the camera frame is the stage, so the close-up crops instead of spilling over the page */
+.booth-link[data-booth-action="print"] .booth-stage { overflow: hidden; border-radius: 12px; }
+.booth-link.is-printing { cursor: progress; }
+
+/* The printed strip: grows out of the slot (height animated), paper anchored to the bottom so it feeds out */
+.print { position: absolute; overflow: hidden; transform-origin: 50% 0; backface-visibility: hidden; }
+.print__paper {
+  position: absolute; left: 0; right: 0; bottom: 0; box-sizing: border-box; padding: 4px 4px 0;
+  display: flex; flex-direction: column; gap: 3px; background: #fdfdfb;
+  box-shadow: inset 0 0 0 1px rgba(20, 24, 40, .08);
+}
+.print__paper img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; filter: grayscale(1) contrast(1.08); }
+.print__foot { flex: 1; }
+/* A small light by the slot blinks while it prints */
+.pickup::after { content: ""; position: absolute; right: 8px; top: 7px; width: 4px; height: 4px; border-radius: 50%; background: #5d4630; }
+.booth-link.is-feeding .pickup::after { background: #9cffb2; box-shadow: 0 0 4px #7dffa0; animation: pb-blink .5s steps(2) infinite; }
+@keyframes pb-blink { 50% { opacity: .3; } }
+.booth-link:focus-visible { outline-offset: 8px; }
+.booth-stage { position: relative; width: 100%; aspect-ratio: 640 / 680; perspective: 1600px; perspective-origin: 50% 51.8%; pointer-events: none; }
+.booth-scene { position: absolute; left: 50%; top: 51.8%; width: 0; height: 0; transform-style: preserve-3d; }
+.booth { position: absolute; left: 0; top: 0; transform-style: preserve-3d; }
+
+.bf { position: absolute; pointer-events: auto; backface-visibility: hidden; overflow: hidden; }
+/* Lighting layer: black for faces turned from the light, white for faces catching it (values from JS) */
+.bf::after {
+  content: ""; position: absolute; inset: 0; z-index: 4; pointer-events: none; border-radius: inherit;
+  background-color: rgba(0, 0, 0, var(--shade, 0));
+  background-image: linear-gradient(rgba(255, 255, 255, var(--hi, 0)), rgba(255, 255, 255, var(--hi, 0)));
+}
+
+/* Satin cherry paint: a soft reflection band slides across as the booth turns */
+.booth-paint {
+  background-color: var(--pb-paint);
+  background-image:
+    linear-gradient(100deg, rgba(40, 0, 0, .12) 0%, rgba(255, 255, 255, .03) 18%, rgba(255, 235, 225, .2) 30%, rgba(255, 255, 255, .03) 44%, rgba(255, 235, 225, .08) 62%, rgba(40, 0, 0, .14) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(0, 0, 0, .06));
+  background-size: 280% 100%, auto;
+  background-position: var(--sheen, 50%) 0, 0 0;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .12);
+}
+.booth-header { box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .12); }
+.booth-side { background-position: calc(100% - var(--sheen, 50%)) 0, 0 0; }
+.booth-back { background: var(--pb-paint-lo); }
+
+/* Oiled oak: grain + warm sheen */
+.booth-trim, .booth-band, .booth-roof {
+  background-color: var(--pb-oak);
+  background-image:
+    repeating-linear-gradient(90deg, rgba(90, 50, 20, .14) 0 1px, transparent 1px 5px, rgba(255, 220, 170, .08) 5px 6px, transparent 6px 11px),
+    linear-gradient(180deg, var(--pb-oak-hi), var(--pb-oak) 45%, var(--pb-oak-lo));
+}
+.booth-roof { background-image: radial-gradient(closest-side, #b98352, #9a693c); }
+
+/* Inside the booth: cream walls lit from above, stone-grey floor */
+.booth-in--back { background: radial-gradient(120% 70% at 50% 0%, #fffaf0 0%, #f4ecdc 55%, #e7dcc7 100%); }
+.booth-in--wall { background: linear-gradient(180deg, #f1e8d6, #ddd0b8); }
+.booth-in--floor { background: #5b5a56; }
+.booth-in--ceil { background: #fbfcff; }
+.booth-in--back::before { /* lamp glow brightens while the booth is hovered */
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background: radial-gradient(90% 55% at 50% 0%, rgba(255, 240, 205, .95), transparent 70%);
+  opacity: 0; transition: opacity .5s ease;
+}
+[data-booth].is-hot .booth-in--back::before, [data-booth]:focus-visible .booth-in--back::before { opacity: 1; }
+
+/* Stool: round parts built from strips (see cyl() in booth3d.js) */
+.cyl-cap { border-radius: 50%; }
+.stool-seat.cyl-side { background: linear-gradient(180deg, var(--pb-oak-hi), var(--pb-oak) 55%, var(--pb-oak-lo)); }
+.stool-seat.cyl-cap { background: radial-gradient(circle at 42% 38%, #e6b47f, var(--pb-oak) 62%, var(--pb-oak-lo)); box-shadow: inset 0 0 0 2px rgba(80, 45, 15, .35); }
+.stool-post.cyl-side, .stool-collar.cyl-side, .stool-foot.cyl-side { background: linear-gradient(180deg, #e9ebee, #a7abb1); }
+.stool-collar.cyl-cap, .stool-foot.cyl-cap { background: radial-gradient(circle at 45% 40%, #f6f7f8, #c3c6ca 70%, #9a9ea4); }
+
+/* Curtain: rose velvet on a rod. Closed by default; draws back to the right on hover/focus/walk-in */
+.curtain { overflow: visible; }
+.curtain-rod { background: linear-gradient(180deg, #f2f3f5, #9da1a7); border-radius: 3px; }
+.curtain__cloth {
+  position: absolute; inset: 0; transform-origin: 100% 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, .18), transparent 8%, transparent 88%, rgba(0, 0, 0, .14)),
+    repeating-linear-gradient(90deg, var(--pb-velvet-lo) 0, #2e2e36 4px, var(--pb-velvet) 8px, #45454f 10px, #24242b 13px, var(--pb-velvet-lo) 16px);
+  box-shadow: -8px 0 18px rgba(0, 0, 0, .2);
+  transition: transform .9s cubic-bezier(.65, 0, .25, 1);
+}
+.curtain__rings { position: absolute; left: 0; right: 0; top: -3px; height: 6px; background: radial-gradient(circle at 8px 3px, #d9dbde 2.5px, transparent 3px) 0 0 / 16px 6px repeat-x; }
+[data-booth].is-hot .curtain__cloth, [data-booth].is-entering .curtain__cloth, [data-booth]:focus-visible .curtain__cloth { transform: scaleX(.26); }
+
+/* Header band: oak, wrapping the whole booth, with little windows of photo strips and a lit name plaque */
+.booth-band { box-shadow: inset 0 2px 0 rgba(255, 230, 190, .35), inset 0 -2px 0 rgba(60, 35, 12, .35); }
+.band-row { height: 100%; display: flex; align-items: center; justify-content: space-evenly; padding: 0 8px; box-sizing: border-box; }
+.band-window {
+  display: flex; gap: 2px; padding: 3px; height: 38px; box-sizing: border-box; background: #10131f; border-radius: 2px;
+  box-shadow: 0 0 0 2px #e9d7b8, 0 0 0 3px rgba(60, 35, 12, .5), inset 0 0 6px rgba(150, 180, 255, .25);
+}
+.band-window img { display: block; width: 14px; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.1) brightness(1.1); }
+.band-plaque { /* a lit lightbox: glowing cream face, a warm halo on the wood, letters that glow a little */
+  position: relative; z-index: 5;   /* above the panel's shading layer: a light source isn't shaded */
+  padding: 6px 14px 7px; border-radius: 3px; font: 400 25px/1 var(--font-display); color: #b3232c;
+  background: radial-gradient(120% 140% at 50% 50%, #ffffff 0%, #fff8e8 55%, #fbe9c6 100%);
+  box-shadow: 0 0 0 2px var(--pb-oak-lo), inset 0 0 14px rgba(255, 214, 140, .7), 0 0 6px 1px rgba(255, 236, 190, .9);
+  text-shadow: 0 0 1px rgba(179, 35, 44, .7), 0 0 7px rgba(255, 110, 90, .55), 0 0 16px rgba(255, 160, 110, .45);
+  transition: text-shadow .4s ease;
+}
+/* The halo is a wide, flat ellipse that fades out before the band's top and bottom edges, so the lid
+   sitting on top of the band never slices it off */
+.band-plaque::before {
+  content: ""; position: absolute; z-index: -1; left: -70px; right: -70px; top: -9px; bottom: -9px; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(255, 232, 180, .8), rgba(255, 206, 140, .35) 55%, transparent 100%);
+  transition: opacity .4s ease; opacity: .85;
+}
+/* hover: the bulbs burn a little brighter */
+[data-booth].is-hot .band-plaque::before, [data-booth]:focus-visible .band-plaque::before { opacity: 1; }
+[data-booth].is-hot .band-plaque, [data-booth]:focus-visible .band-plaque {
+  text-shadow: 0 0 1px rgba(179, 35, 44, .8), 0 0 9px rgba(255, 110, 90, .7), 0 0 20px rgba(255, 160, 110, .55);
+}
+.booth-roof { border-radius: 70px; }
+/* Chrome base ring */
+.booth-base { background: linear-gradient(180deg, #f1f3f6, #c3c8cf 45%, #8f959d); box-shadow: inset 0 1px 0 #fff; }
+
+/* Soft contact shadow; it drifts away from the light */
+.booth-shadow { pointer-events: none; overflow: visible; }
+.booth-shadow i {
+  position: absolute; left: 22%; top: 22%; width: 56%; height: 56%; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(30, 40, 80, .3), rgba(30, 40, 80, .1) 55%, transparent);
+  transform: translate(var(--shx, 0), var(--shy, 0)); filter: blur(6px);
+}
+.booth-shadow::after { display: none; }
+:root[data-theme="dark"] .booth-shadow i { background: radial-gradient(closest-side, rgba(0, 0, 0, .55), rgba(0, 0, 0, .2) 55%, transparent); }
+
+/* Front-left panel: a tall backlit panel in an oak frame (it glows a little brighter on hover) */
+.light-panel {
+  position: absolute; left: 22px; right: 22px; top: 26px; height: 236px; display: flex; align-items: flex-start; justify-content: center;
+  background: linear-gradient(90deg, #eef3ff, #ffffff 30%, #ffffff 70%, #e6edfc);
+  box-shadow: 0 0 0 6px var(--pb-oak), 0 0 0 7px var(--pb-oak-lo), inset 0 0 24px rgba(160, 185, 240, .45), 0 0 18px rgba(255, 255, 255, .35);
+  transition: box-shadow .4s ease;
+}
+.light-panel { flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding-bottom: 14px; box-sizing: border-box; }   /* centred, nudged a touch above middle */
+.light-panel__text { font: 700 12px/1 var(--font-sans); letter-spacing: .16em; text-transform: uppercase; color: var(--pb-accent); }
+.panel-strip {
+  width: 46px; padding: 4px 4px 12px; box-sizing: border-box; background: #fdfdfb; transform: rotate(-3deg);
+  display: flex; flex-direction: column; gap: 3px; box-shadow: 0 2px 5px rgba(40, 20, 20, .28);
+}
+.panel-strip img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; filter: grayscale(1) contrast(1.1); }
+[data-booth].is-hot .light-panel, .pg-cover--booth .light-panel { box-shadow: 0 0 0 6px var(--pb-oak), 0 0 0 7px var(--pb-oak-lo), inset 0 0 18px rgba(160, 185, 240, .3), 0 0 26px rgba(255, 255, 255, .55); }
+.pickup {
+  position: absolute; left: 50%; top: 296px; transform: translateX(-50%); width: 104px; height: 44px; box-sizing: border-box; padding: 6px 10px;
+  display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+  background: linear-gradient(180deg, var(--pb-oak-hi), var(--pb-oak)); border-radius: 3px;
+  box-shadow: inset 0 0 0 1px rgba(80, 45, 15, .35), 0 2px 4px rgba(0, 0, 0, .25);
+}
+.pickup__label { font: 400 7px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: #3a2410; }
+.pickup i { width: 60px; height: 9px; border-radius: 2px; background: #1a1410; box-shadow: inset 0 0 0 2px #3a2a1c; }
+
+/* Cover version (Playground > Personal projects): a clean product shot. Plain soft grey studio
+   backdrop, the booth's own soft contact shadow, lightbox and lamp switched on. No overlays on the 3D scene. */
+.pg-cover--booth { background: linear-gradient(180deg, #f5f5f7 0%, #ececef 100%); }
+.pg-cover--booth .booth-stage { position: absolute; z-index: 1; left: 50%; top: 2%; height: 94%; width: auto; transform: translateX(-50%); }
+.pg-cover--booth:hover, .pg-cover--booth:focus-visible { transform: none; }   /* no lift: moving a 3D scene's parent makes it shimmer */
+.pg-cover--booth .booth-in--back::before { opacity: 1; }
+.pg-cover--booth .booth-shadow i { background: radial-gradient(closest-side, rgba(20, 20, 30, .26), rgba(20, 20, 30, .08) 60%, transparent); }
+:root[data-theme="dark"] .pg-cover--booth { box-shadow: 0 0 0 1px rgba(226, 234, 255, .12); }
+
+/* Curved corners are many thin strips: give them flat paint and no outline so they read as one smooth surface
+   (the per-strip lighting from booth3d.js does the rounding) */
+.booth-paint.ring-curve, .booth-paint.ring-side, .booth-paint.ring-back { background-image: none; box-shadow: none; }
+.booth-band.ring-curve { background-image: linear-gradient(180deg, var(--pb-oak-hi), var(--pb-oak) 45%, var(--pb-oak-lo)); }
