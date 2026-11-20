@@ -12,7 +12,7 @@
 .pg-head { display: flex; flex-direction: column; gap: 4px; }
 .pg-head .section-title { margin: 0; }
 .pg-sub { font-size: 14px; line-height: 20px; letter-spacing: -0.14px; color: var(--text-muted); }
-.pg-link { color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; transition: color .2s ease; }
+.pg-link { font-weight: 500; color: var(--text-primary); transition: color .2s ease; }   /* one weight up, no underline */
 .pg-link:hover { color: var(--text-sparkle); }
 
 /* Visual arts: justified rows. Each piece grows in proportion to its shape (see the --ar classes), so every piece in a

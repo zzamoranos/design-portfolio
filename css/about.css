@@ -6,11 +6,31 @@
 
 /* ---------- intro + collage ---------- */
 .about-intro { display: flex; flex-direction: column; gap: 24px; padding-top: 20px; }
-.about-intro__text { display: flex; flex-direction: column; gap: 12px; }
+.about-intro__text { display: flex; flex-direction: column; gap: 20px; }   /* room between the intro paragraphs */
 /* Greeting: the page's display heading (Gelica 24/30, a step under Display so the photos fit above the fold) */
 .about-hello { margin: 0 0 4px; font-family: var(--font-display); font-weight: 400; font-size: 24px; line-height: 30px; color: var(--text-heading); }
-.about-intro .about-note { max-width: none; } /* intro lines span the photo grid's width */
-.about-intro__lede { max-width: none; font-size: 16px; line-height: 24px; letter-spacing: -0.16px; color: var(--text-intro); }
+.about-intro .about-note { max-width: none; font-size: 14px; line-height: 22px; letter-spacing: -0.14px; } /* intro lines span the photo grid's width */
+.about-thesis {   /* the page's lead statement: biggest type on the page, balanced lines, full column width */
+  margin: 0 0 12px; max-width: none; text-wrap: balance;   /* + the 20px gap: the statement sits apart from the paragraphs */
+  font-family: var(--font-display); font-weight: 400; font-size: clamp(28px, 2.6vw, 36px); line-height: 1.2; letter-spacing: -0.02em;
+  color: var(--text-heading);
+}
+.about-thesis__accent { color: var(--text-sparkle); }
+:root[data-theme="dark"] .about-thesis__accent { color: var(--text-label); }   /* periwinkle: stands apart from the white heading */
+/* "let's chat" links to LinkedIn: same treatment as the home page's email link, a hint fades in underneath */
+.about-chat { position: relative; display: inline-block; font-weight: 500; color: var(--text-primary); transition: color .2s ease; }   /* one weight up, no underline */
+.about-chat:hover, .about-chat:focus-visible { color: var(--text-sparkle); }
+.about-intro .about-note:has(.about-chat) { padding-bottom: 18px; }   /* room for the hint so it never crowds the photos */
+.about-chat__hint {
+  position: absolute; left: 0; top: 100%;   /* starts under "let's" */
+  margin-top: 2px; white-space: nowrap; pointer-events: none;
+  font-weight: 400; font-size: 12px; line-height: 16px; letter-spacing: 0; text-decoration: none; color: var(--text-muted);
+  opacity: 0; translate: 0 -3px; transition: opacity .2s ease, translate .2s ease;
+}
+.about-chat:hover .about-chat__hint, .about-chat:focus-visible .about-chat__hint { opacity: 1; translate: 0 0; }
+:root[data-theme="dark"] .about-chat:hover, :root[data-theme="dark"] .about-chat:focus-visible { color: var(--text-label); }
+@media (prefers-reduced-motion: reduce) { .about-chat__hint { transition: none; translate: 0 0; } }
+.about-intro__lede { max-width: none; font-size: 14px; line-height: 22px; letter-spacing: -0.14px; color: var(--text-intro); }
 
 .collage {
   position: relative; margin: 0;   /* reset the browser default <figure> margins */
@@ -223,8 +243,9 @@
 /* ---------- design ethos ---------- */
 .ethos { display: flex; flex-direction: column; gap: 24px; }
 .ethos .sparkle { margin-bottom: -12px; }
-.ethos__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 36px; }
+.ethos__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 36px 40px; }
 .ethos__list li { display: flex; flex-direction: column; gap: 8px; }
+.ethos__list li p + p { margin-top: 2px; }
 .ethos__num { font-weight: 600; font-size: 10px; line-height: 12px; letter-spacing: .04em; color: var(--text-muted); font-variant-numeric: tabular-nums; }
 .ethos__title { font-weight: 500; font-size: 16px; line-height: 22px; letter-spacing: -0.16px; color: var(--text-primary); }
 .ethos__list p { font-size: 14px; line-height: 20px; letter-spacing: -0.14px; color: var(--text-muted-em); }
@@ -262,6 +283,62 @@
 .timeline__org, .timeline__date { font-size: 12px; line-height: 18px; color: var(--text-muted-alt); }
 .timeline__org { letter-spacing: -0.12px; }
 .timeline__date { letter-spacing: -0.24px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* ---------- ID badges beside Experience / Community (built by js/badges.js; larger screens only) ---------- */
+.timeline-groups { position: relative; }
+.badge-stage { display: none; }
+.timeline-groups.has-badges .badge-stage {
+  display: block; position: absolute; right: 0; top: 0; height: 0;
+  width: min(480px, calc(100% - 440px)); pointer-events: none;
+}
+.badge-set { zoom: var(--k, 1); }   /* badges shrink a little on tighter screens (set by js/badges.js) */
+.badge-set { position: absolute; inset: 0; visibility: hidden; opacity: 0; transition: opacity .3s ease, visibility 0s linear .3s; }
+.badge-set.is-active { visibility: visible; opacity: 1; transition: opacity .3s ease; }
+
+/* A clear glass ID holder: frosted, with a bright top edge and a soft sheen, and a frosted card inside */
+.badge {
+  position: absolute; left: 0; top: 0; width: 140px;
+  transition: transform .55s cubic-bezier(.25, 1, .4, 1), opacity .3s ease;
+}
+.badge__card {
+  position: relative; display: block; height: 196px; border-radius: 12px; overflow: hidden;
+  background: linear-gradient(150deg, rgba(255, 255, 255, .7), rgba(214, 224, 250, .32) 55%, rgba(236, 241, 255, .5));   /* faintly cool, so it reads as glass on white */
+  -webkit-backdrop-filter: blur(10px) saturate(1.4); backdrop-filter: blur(10px) saturate(1.4);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .8), inset 0 1px 0 #fff, inset 0 -10px 18px -12px rgba(120, 140, 200, .35),
+    0 0 0 1px rgba(60, 80, 140, .12), 0 14px 30px -14px rgba(30, 40, 80, .32);
+}
+.badge__card::after {   /* light catching the glass */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(115deg, rgba(255, 255, 255, .55) 0%, rgba(255, 255, 255, 0) 32%, rgba(255, 255, 255, 0) 70%, rgba(255, 255, 255, .25) 100%);
+}
+.badge__slot { position: absolute; z-index: 1; left: 50%; top: 9px; width: 34px; height: 6px; translate: -50% 0; border-radius: 6px; background: rgba(17, 24, 39, .1); box-shadow: inset 0 1px 1px rgba(17, 24, 39, .15); }
+.badge__inner {
+  position: absolute; z-index: 1; inset: 23px 9px 9px; display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: 22px 10px 12px; border-radius: 8px;
+  background: rgba(252, 253, 255, .96); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .8), 0 1px 2px rgba(17, 24, 39, .08);   /* solid card: nothing behind shows through the text */
+}
+.badge__role { font: 600 13px/17px var(--font-body); color: #15171d; }
+.badge__org { margin-top: 5px; font: 400 11px/14px var(--font-body); color: #5b6175; }
+.badge__date { margin-top: auto; white-space: nowrap; font: 400 9.5px/1 var(--font-mono); letter-spacing: .02em; color: #737a90; }
+:root[data-theme="dark"] .badge__card {
+  background: linear-gradient(150deg, rgba(226, 234, 255, .16), rgba(226, 234, 255, .05) 60%, rgba(226, 234, 255, .1));
+  box-shadow: inset 0 0 0 1px rgba(226, 234, 255, .22), inset 0 1px 0 rgba(255, 255, 255, .3), 0 16px 34px -14px rgba(0, 0, 0, .7);
+}
+:root[data-theme="dark"] .badge__card::after { background: linear-gradient(115deg, rgba(255, 255, 255, .16) 0%, rgba(255, 255, 255, 0) 35%); }
+:root[data-theme="dark"] .badge__slot { background: rgba(0, 0, 0, .35); }
+:root[data-theme="dark"] .badge__inner { background: #1c2337; box-shadow: inset 0 0 0 1px rgba(226, 234, 255, .1); }
+:root[data-theme="dark"] .badge__role { color: var(--text-primary); }
+:root[data-theme="dark"] .badge__org, :root[data-theme="dark"] .badge__date { color: var(--text-muted); }
+
+/* Nothing at rest; hovering a row shows only that row's badge beside it, settling in from just above */
+.badge { opacity: 0; transform: translate(var(--cx), calc(var(--cy, 0px) - 12px)); }
+.badge.is-focus { opacity: 1; transform: translate(var(--cx), var(--cy, 0px)); z-index: 20; }
+
+/* The list follows along: the hovered row stays bright, the others step back a little */
+.timeline-groups.has-badges .timeline__list li { transition: opacity .25s ease; }
+.timeline-groups.has-badges .timeline__list:has(li.is-badged) li:not(.is-badged) { opacity: .5; }
+@media (prefers-reduced-motion: reduce) { .badge { transition: opacity .2s ease; } }
 
 /* ---------- outside of design ---------- */
 .outside { display: flex; flex-direction: column; gap: 16px; }
