@@ -1,6 +1,6 @@
 // Scroll reveal: content fades up the first time it scrolls into view (styles in css/styles.css).
 // About: each section below the intro. Home: the case study cards, staggered across a row.
-// Case studies: the stats, project facts, each section, the hero visual and the "read next" card.
+// Case studies: the stats, project facts, each section and the hero visual.
 (function () {
   'use strict';
   if (!('IntersectionObserver' in window)) return;
@@ -10,7 +10,7 @@
     '.main--about > section:not(:first-child)',
     '.card-grid > li',
     '.case__stats', '.case__outcome', '.case__meta', '.case__toc',
-    '.case__figure--hero', '.case__phones--hero', '.dc-hero', '.case__section', '.cs-section', '.main--playground > .pg-section', '.cs-hero', '.cs-meta', '.case__next'
+    '.case__figure--hero', '.case__phones--hero', '.dc-hero', '.case__section', '.cs-section', '.main--playground > .pg-section', '.cs-hero', '.cs-meta'
   ].join(', '));
   if (!targets.length) return;
 

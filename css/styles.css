@@ -217,12 +217,19 @@ a[aria-disabled="true"] { cursor: default; }  /* links whose URL isn't set yet i
   display: inline-flex; align-items: center; gap: 6px; padding: 4px 0;
   font-family: var(--font-body); font-size: 12px; line-height: 14px; letter-spacing: -0.12px; color: var(--text-link);
 }
-.social-link:hover { text-decoration: underline; text-underline-offset: 3px; }
 .social-link__icon {
   flex: none; fill: none; stroke: currentColor; stroke-width: 1.8;
   stroke-linecap: round; stroke-linejoin: round; opacity: .8;
 }
 .social-link:hover .social-link__icon { opacity: 1; }
+/* Contact links leave the site: a small up-right arrow slides in on hover/focus */
+.social-link::after, .footer__links ul[aria-label="Contact"] a::after {
+  content: "↗"; display: inline-block; margin-left: 2px; font-size: .95em; line-height: 1;
+  opacity: 0; translate: -3px 2px; transition: opacity .18s ease, translate .18s ease;
+}
+.social-link:hover::after, .social-link:focus-visible::after,
+.footer__links ul[aria-label="Contact"] a:hover::after, .footer__links ul[aria-label="Contact"] a:focus-visible::after { opacity: .55; translate: 0 0; }   /* lighter than the label: a hint, not a second word */
+@media (prefers-reduced-motion: reduce) { .social-link::after, .footer__links ul[aria-label="Contact"] a::after { transition: none; translate: 0 0; } }
 
 .theme-toggle { display: flex; align-items: center; gap: 8px; }
 .theme-toggle__btn { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; opacity: .6; transition: opacity .2s ease; }
